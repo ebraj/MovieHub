@@ -1,10 +1,18 @@
-let myDB = "mydb";
-let databaseName = `CREATE DATABASE if not exists ${myDB}`;
-let companyTable =
-  "create table if not exists todos(id int primary key auto_increment, title varchar(255)not null default 0)";
+let databaseName = "movie_db";
 
+/**
+ * Creating the Database
+ */
+let createDatabase = `CREATE DATABASE if not exists ${databaseName}`;
+
+/**
+ * Defining the queries...
+ */
+
+/**
+ * Exporting the modules
+ */
 module.exports = {
   databaseName,
-  companyTable,
+  createDatabase,
 };
- 
