@@ -14,7 +14,7 @@ connection.connect(function (err) {
     connection.query("USE mydb");
     connection.query(companyTable, function (err, result) {
       if (err) throw err;
-      console.log("Table created");
+      console.log("Company Table created");
     });
   });
 });
