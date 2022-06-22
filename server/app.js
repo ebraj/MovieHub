@@ -1,13 +1,15 @@
 const mysql = require("mysql");
 const express = require("express");
-let { connection } = require("./components/config");
-let queries = require("./components/sql_queries");
+const sql = require('./components');
 
-connection.connect();
+// let { connection } = require("./components/config");
+// let queries = require("./components/sql_queries");
 
-connection.query(queries.createDatabase, function (error, results, fields) {
+sql.connection.connect();
+
+sql.connection.query(sql.queries.createDatabase, function (error, results, fields) {
   if (error) throw error;
   console.log("Database Created.");
 });
 
-connection.end();
+sql.connection.end();

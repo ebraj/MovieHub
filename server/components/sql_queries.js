@@ -2,7 +2,7 @@
 /**
  * Queries
  */
-const queries = {
+const queryobj = {
   createDatabase: `CREATE DATABASE if not exists movie_db`,
   companyTable:
     "create table if not exists production_company(name varchar(50) primary key, address varchar(65))",
@@ -25,4 +25,4 @@ const queries = {
     "create table if not exists MovieQuotes (character varchar(50),quote varchar(150),foreign key(character) references acts(role) on delete cascade on update cascade)"
 };
 
-module.exports = queries;
+module.exports = queryobj;
