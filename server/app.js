@@ -2,8 +2,6 @@ const mysql = require("mysql");
 const express = require("express");
 const sql = require('./components');
 
-// let { connection } = require("./components/config");
-// let queries = require("./components/sql_queries");
 
 sql.connection.connect();
 

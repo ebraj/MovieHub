@@ -3,7 +3,8 @@
  * Queries
  */
 const queryobj = {
-  createDatabase: `CREATE DATABASE if not exists movie_db`,
+  createDatabase: 
+    `CREATE DATABASE if not exists movie_db`,
   companyTable:
     "create table if not exists production_company(name varchar(50) primary key, address varchar(65))",
   directorTable:
