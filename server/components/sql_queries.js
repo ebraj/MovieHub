@@ -23,15 +23,23 @@ const createTables = {
   directedByTable:
     "create table if not exists directs(movie_title varchar(100),director_name varchar(50), role varchar(50), foreign key(movie_title) references movie(title) on delete cascade on update cascade,foreign key(director_name) references director(director_name) on delete cascade on update cascade)",
   quoteTable:
-    "create table if not exists MovieQuotes (role_played varchar(50),quote varchar(150),foreign key(role_played) references acts(role) on delete cascade on update cascade)"
-};
+    "create table if not exists MovieQuotes (role_played varchar(50),quote varchar(150),foreign key(role_played) references acts(role) on delete cascade on update cascade)",
+  director_act:
+    "create table if not exists DirActs(Movie_name varchar(100),Director_name varchar(50),role varchar(25), foreign key(Movie_name) references movie(title) on delete cascade on update cascade,foreign key(Director_name) references director(director_name) on delete cascade on update cascade)",
+  
+  };
 
 /*
 // Queries for insertion operations
 */
-// let tableName = "production_company";
-// let data = ["Bindabasini movies","Baneshwor,Kathmandu"];
-// let insertData = `insert into ${tableName} values ?`;
+let tableName = "production_company";
+let data = ["Bindabasini movies","Baneshwor,Kathmandu"];
+let insertData = `insert into ${tableName} values (?,?) `;
 
+let showTable = `select * from ${tableName}`;
 
-module.exports = {createTables,};
+module.exports = {
+  createTables,
+  insertData,
+  showTable,
+};
