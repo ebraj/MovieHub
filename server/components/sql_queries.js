@@ -32,8 +32,11 @@ const createTables = {
 // Queries for insertion operations
 */
 
+
 const insertIntoTable ={
-  insertIntoMovies:"insert into  "
+  addProductionCompany: "insert into production_company values(?,?)",
+  insertIntoMovies:"insert into movie values(?,?,?,?,?)",
+  
 };
 
 
@@ -48,11 +51,9 @@ const showTable = {
 
 
 
-let insertData = `insert into ${tableName} values (?,?) `;
-
 
 module.exports = {
   createTables,
-  insertData,
+  insertIntoTable,
   showTable,
 };
