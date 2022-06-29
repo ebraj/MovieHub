@@ -39,15 +39,15 @@ const insertIntoTable ={
 
 const showTable = {
   showMovies: "select moviegenre.movie_name, length,year_of_release, plot_outline,company_name, group_concat(distinct genre) as genres from movie,moviegenre group by moviegenre.movie_name;",
-  showCast: "",
+  showCast: "select movie_name , group_concat(distinct acts.actor_name) as actors from actor,acts group by movie_name;",
+  showCastDetails: "select * from actor natural join acts",
+  showDirector: "select * from select * from director natural join directs",
 };
 
 
 
 
 
-let tableName = "production_company";
-let data = ["Bindabasini movies","Baneshwor,Kathmandu"];
 let insertData = `insert into ${tableName} values (?,?) `;
 
 

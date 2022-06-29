@@ -1,7 +1,6 @@
 const mysql = require("mysql");
 const express = require("express");
 const sql = require('./components');
-const { application } = require("express");
 
 const app = express();
 
@@ -31,22 +30,40 @@ qkeys.forEach((key,index)=>{
 //   else console.log(`Data inserted successfully`);
 // });
 
-var table = new Object();
+
+var movie = new Object();
+var cast = new Object();
 
 //Read operation
 sql.connection.query(sql.displayTable.showMovies,(err,results,fields)=>{
   if(err) console.log(`Error: ${err.message}`);
-  table = results;
+  movie = results;
 });
-
-
-app.get('/',(req,res)=>{
-  res.send(table);
+sql.connection.query(sql.displayTable.showCast,(err,results)=>{
+  if(err) console.log(`Error: ${err.message}`);
+  cast = results;
 })
+
+
+var movieRoute = ['/','/movies'];
+app.get(movieRoute,(req,res)=>{
+  res.send(movie);
+})
+
+app.get('/cast',(req,res)=>{
+  res.send(cast);
+})
+
+
+
+
+
+
+
+
 
 app.listen(PORT,()=>{
   console.log(`server running on port ${PORT}`);
 })
-
 
 sql.connection.end();
