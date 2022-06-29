@@ -32,27 +32,28 @@ const createTables = {
 // Queries for insertion operations
 */
 
+
 const insertIntoTable ={
-  insertIntoMovies:"insert into  "
+  addProductionCompany: "insert into production_company values(?,?)",
+  insertIntoMovies:"insert into movie values(?,?,?,?,?)",
+  
 };
 
 
 const showTable = {
-  showMovies: "select * from movie natural join moviegenre;",
-  showCast: "",
+  showMovies: "select moviegenre.movie_name, length,year_of_release, plot_outline,company_name, group_concat(distinct genre) as genres from movie,moviegenre group by moviegenre.movie_name;",
+  showCast: "select movie_name , group_concat(distinct acts.actor_name) as actors from actor,acts group by movie_name;",
+  showCastDetails: "select * from actor natural join acts",
+  showDirector: "select * from select * from director natural join directs",
 };
 
 
 
 
 
-let tableName = "production_company";
-let data = ["Bindabasini movies","Baneshwor,Kathmandu"];
-let insertData = `insert into ${tableName} values (?,?) `;
-
 
 module.exports = {
   createTables,
-  insertData,
+  insertIntoTable,
   showTable,
 };

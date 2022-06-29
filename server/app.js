@@ -1,7 +1,6 @@
-const mysql = require("mysql");
 const express = require("express");
 const sql = require('./components');
-const { application } = require("express");
+// const mysql = require('mysql');
 
 const app = express();
 
@@ -23,6 +22,31 @@ qkeys.forEach((key,index)=>{
 });
 });
 
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
+
+
+var companyData = [];
+
+app.post('/',(req,res)=>{
+  var company = req.body;
+  var newCompany = Object.keys(company).map((key) =>{
+    return company[key];
+    });
+  sql.addTo.addCompany(newCompany);
+  //companyData.push(company);
+  res.send(company);
+})
+var newCompany = Object.keys(companyData).map((key) =>{
+  return obj[key];
+});
+
+console.log(newCompany);
+
+// sql.connection.query(sql.insertInto.addProductionCompany,newCompany,(err)=>{
+//   if(err) console.log(`Error: ${err.message}`);
+// })
+
 
 // // Insertion operation
 // let data = ["Gopi krishna","Baneshwor,Kathmandu"];
@@ -31,22 +55,42 @@ qkeys.forEach((key,index)=>{
 //   else console.log(`Data inserted successfully`);
 // });
 
-var table = new Object();
+
+
+
+var movie = new Object();
+var cast = new Object();
 
 //Read operation
-sql.connection.query(sql.displayTable.showMovies,(err,results,fields)=>{
+sql.connection.query(sql.displayTable.showMovies,(err,results)=>{
   if(err) console.log(`Error: ${err.message}`);
-  table = results;
+  movie = results;
 });
-
-
-app.get('/',(req,res)=>{
-  res.send(table);
+sql.connection.query(sql.displayTable.showCast,(err,results)=>{
+  if(err) console.log(`Error: ${err.message}`);
+  cast = results;
 })
+
+
+var movieRoute = ['/','/movies'];
+app.get('movieRoute',(req,res)=>{
+  res.send(movie);
+})
+
+app.get('/cast',(req,res)=>{
+  res.send(cast);
+})
+
+
+
+
+
+
+
+
 
 app.listen(PORT,()=>{
   console.log(`server running on port ${PORT}`);
 })
 
-
-sql.connection.end();
+//sql.connection.end();
