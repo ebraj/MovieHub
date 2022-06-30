@@ -33,6 +33,7 @@ const createTables = {
 */
 const insertIntoTable = {
   addProductionCompany: "insert into production_company values(?,?)",
+  addgenre:"insert into moviegenre values(?,?)",
   insertIntoMovies: "insert into movie values(?,?,?,?,?)",
 };
 
