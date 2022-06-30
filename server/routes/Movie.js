@@ -1,22 +1,17 @@
 const express = require("express");
+const { connection, displayTable } = require("../models");
+
 const movieRouter = express.Router();
 
-movieRouter.get("/", (req, res, next) => {
-  res.send("Moviepage.");
-  //Read operation
-  // connection.query(displayTable.showMovies, (err, results) => {
-  //   if (err) console.log(`Error: ${err.message}`);
-  //   movie = results;
-  //   console.log(movie);
-  // });
+let movie = ["/","/movies"];
+
+movieRouter.get(movie, (req, res) => {
+  connection.query(displayTable.showMovies, (err, results) => {
+    if (err) console.log(`Error: ${err.message}`);
+    movie = results;
+    res.send(movie);
+  });
 });
-movieRouter.post("/", (req, res, next) => {});
+movieRouter.post("/", (req, res) => {});
 
 module.exports = movieRouter;
-
-// // Insertion operation
-// let data = ["Gopi krishna","Baneshwor,Kathmandu"];
-// connection.query(insertInto,data,function (err) {
-//   if(err) console.log(err.message);
-//   else console.log(`Data inserted successfully`);
-// });

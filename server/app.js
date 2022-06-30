@@ -4,7 +4,6 @@ const app = express();
 /**
  * Importing the routes
  */
-const homeRouter = require("./routes/Home");
 const castRouter = require("./routes/Cast");
 const movieRouter = require("./routes/Movie");
 const companyRouter = require("./routes/Company");
@@ -36,7 +35,6 @@ connection.query(createDB.movieDB, function (err) {
     console.log(err.message);
   } else {
     connection.query("use movie_db");
-
     /**
      * Creating Tables...
      */
@@ -49,10 +47,12 @@ connection.query(createDB.movieDB, function (err) {
   }
 });
 
-app.use("/", homeRouter);
-app.use("/cast", castRouter);
-app.use("/movie", movieRouter);
-app.use("/company", companyRouter);
+
+
+app.use("/casts", castRouter);
+app.use("/", movieRouter);
+app.use("/companies", companyRouter);
+
 app.listen(3000, () => {
   console.log(`Server running on port 3000`);
 });

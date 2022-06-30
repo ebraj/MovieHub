@@ -1,24 +1,24 @@
 const express = require("express");
+const {connection,addTo,displayTable} = require("../models");
+
 const companyRouter = express.Router();
 
-let companyData = [];
-companyRouter.get("/", (req, res, next) => {
-  res.send("Companypage.");
+
+companyRouter.get("/", (req, res) => {
+  connection.query(displayTable.showCompany,(err,results)=>{
+    if (err) console.log(`Error: ${err.message}`);
+    res.send(results);
+  })
 });
-companyRouter.post("/", (req, res, next) => {
+
+companyRouter.post("/", (req, res) => {
   let company = req.body;
   let newCompany = Object.keys(company).map((key) => {
     return company[key];
   });
   addTo.addCompany(newCompany);
-  res.send(company);
-});
-let newCompany = Object.keys(companyData).map((key) => {
-  return obj[key];
+  res.send('New Company Added');
 });
 
-// connection.query(insertInto.addProductionCompany,newCompany,(err)=>{
-//   if(err) console.log(`Error: ${err.message}`);
-// })
 
 module.exports = companyRouter;
