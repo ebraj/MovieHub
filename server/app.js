@@ -1,96 +1,58 @@
 const express = require("express");
-const sql = require('./components');
-// const mysql = require('mysql');
-
 const app = express();
 
-const PORT = 3000;
+/**
+ * Importing the routes
+ */
+const homeRouter = require("./routes/Home");
+const castRouter = require("./routes/Cast");
+const movieRouter = require("./routes/Movie");
+const companyRouter = require("./routes/Company");
 
-sql.connection.connect();
-sql.connection.query(`create database if not exists movie_db`,function (err) {
-  if(err) console.log(err.message);
-  //else console.log(`DB created`);
-});
+/**
+ * Object Destructuring...
+ */
+const {
+  connection,
+  createDB,
+  createTable,
+  insertInto,
+  displayTable,
+  addTo,
+} = require("./models");
 
-sql.connection.query(`use movie_db`);
-// Creating tables 
-const qkeys = Object.keys(sql.createTable);
-qkeys.forEach((key,index)=>{
-  sql.connection.query(sql.createTable[key],function(err){
-    if(err) console.log(err.message);
-    //else console.log(`${key} created`);
-});
-});
-
+/**
+ * Express Middleware...
+ */
 app.use(express.json());
-app.use(express.urlencoded({extended:false}));
+app.use(express.urlencoded({ extended: false }));
 
+connection.connect();
+/**
+ * Creating the Database and using it...
+ */
+connection.query(createDB.movieDB, function (err) {
+  if (err) {
+    console.log(err.message);
+  } else {
+    connection.query("use movie_db");
 
-var companyData = [];
-
-app.post('/',(req,res)=>{
-  var company = req.body;
-  var newCompany = Object.keys(company).map((key) =>{
-    return company[key];
+    /**
+     * Creating Tables...
+     */
+    const qkeys = Object.keys(createTable);
+    qkeys.forEach((key) => {
+      connection.query(createTable[key], function (err) {
+        if (err) console.log(err.message);
+      });
     });
-  sql.addTo.addCompany(newCompany);
-  //companyData.push(company);
-  res.send(company);
-})
-var newCompany = Object.keys(companyData).map((key) =>{
-  return obj[key];
+  }
 });
 
-console.log(newCompany);
-
-// sql.connection.query(sql.insertInto.addProductionCompany,newCompany,(err)=>{
-//   if(err) console.log(`Error: ${err.message}`);
-// })
-
-
-// // Insertion operation
-// let data = ["Gopi krishna","Baneshwor,Kathmandu"];
-// sql.connection.query(sql.insertInto,data,function (err) {
-//   if(err) console.log(err.message);
-//   else console.log(`Data inserted successfully`);
-// });
-
-
-
-
-var movie = new Object();
-var cast = new Object();
-
-//Read operation
-sql.connection.query(sql.displayTable.showMovies,(err,results)=>{
-  if(err) console.log(`Error: ${err.message}`);
-  movie = results;
+app.use("/", homeRouter);
+app.use("/cast", castRouter);
+app.use("/movie", movieRouter);
+app.use("/company", companyRouter);
+app.listen(3000, () => {
+  console.log(`Server running on port 3000`);
 });
-sql.connection.query(sql.displayTable.showCast,(err,results)=>{
-  if(err) console.log(`Error: ${err.message}`);
-  cast = results;
-})
-
-
-var movieRoute = ['/','/movies'];
-app.get('movieRoute',(req,res)=>{
-  res.send(movie);
-})
-
-app.get('/cast',(req,res)=>{
-  res.send(cast);
-})
-
-
-
-
-
-
-
-
-
-app.listen(PORT,()=>{
-  console.log(`server running on port ${PORT}`);
-})
-
-//sql.connection.end();
