@@ -1,6 +1,7 @@
 const config = require("../config/config");
 const query = require("./sql_queries");
 const addDB = require("./add_db");
+const connectOurDatabase = require("./createDB");
 
 module.exports = {
   connection: config.connection,
@@ -9,4 +10,5 @@ module.exports = {
   insertInto: query.insertIntoTable,
   displayTable: query.showTable,
   addTo: addDB,
+  connectOurDatabase,
 };

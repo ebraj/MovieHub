@@ -1,22 +1,32 @@
 const express = require("express");
+const { connection, displayTable ,insertInto, addTo} = require("../models");
+
 const movieRouter = express.Router();
 
-movieRouter.get("/", (req, res, next) => {
-  res.send("Moviepage.");
-  //Read operation
-  // connection.query(displayTable.showMovies, (err, results) => {
-  //   if (err) console.log(`Error: ${err.message}`);
-  //   movie = results;
-  //   console.log(movie);
-  // });
+let movie = ["/","/movies"];
+
+movieRouter.get(movie, (req, res) => {
+  connection.query(displayTable.showMovies, (err, results) => {
+    if (err) console.log(`Error: ${err.message}`);
+    res.send(results);
+  });
 });
-movieRouter.post("/", (req, res, next) => {});
+
+movieRouter.post("/", (req, res) => {
+  let movieD = req.body;
+  let genre;
+  for(let key in movieD){
+    if(key === "genre")
+    {genre = movieD[key];}
+  }
+  let newMovie = Object.keys(movieD).map((key) => {
+    return movieD[key];
+  });
+  addTo.addMovies(newMovie,genre);
+  res.send("New movie added");
+});
+
+
+
 
 module.exports = movieRouter;
-
-// // Insertion operation
-// let data = ["Gopi krishna","Baneshwor,Kathmandu"];
-// connection.query(insertInto,data,function (err) {
-//   if(err) console.log(err.message);
-//   else console.log(`Data inserted successfully`);
-// });

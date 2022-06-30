@@ -14,11 +14,9 @@ const createTables = {
     "create table if not exists director (director_name varchar(50) primary key, director_DOB date)",
   actorTable:
     "create table if not exists actor (actor_name varchar(50) primary key, actor_DOB date)",
-
   // multivalue attribute genre referencing to title of movieTable
   genreTable:
     "create table if not exists Moviegenre (movie_name varchar(100),foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade, genre varchar(25))",
-
   // cardinal m-n relations to tables
   actedByTable:
     "create table if not exists acts(movie_name varchar(100),actor_name varchar(50), role varchar(50) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(actor_name) references actor(actor_name) on delete cascade on update cascade)",
@@ -33,9 +31,9 @@ const createTables = {
 /*
 // Queries for insertion operations
 */
-
 const insertIntoTable = {
   addProductionCompany: "insert into production_company values(?,?)",
+  addgenre:"insert into moviegenre values(?,?)",
   insertIntoMovies: "insert into movie values(?,?,?,?,?)",
 };
 
@@ -46,6 +44,7 @@ const showTable = {
     "select movie_name , group_concat(distinct acts.actor_name) as actors from actor,acts group by movie_name;",
   showCastDetails: "select * from actor natural join acts",
   showDirector: "select * from select * from director natural join directs",
+  showCompany: "select * from production_company",
 };
 
 module.exports = {

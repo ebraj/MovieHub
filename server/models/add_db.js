@@ -9,11 +9,25 @@ function addCompany(data) {
     data,
     (err) => {
       if (err) console.log(`Error: ${err.message}`);
-      else console.log("Values added");
+      else console.log("New Company added");
     }
   );
 }
 
+function addMovies(data,genre) {
+  connection.query(queries.insertIntoTable.insertIntoMovies,data,(err)=>{
+    if (err) console.log(`Error: ${err.message}`);
+    else console.log("New movie added");
+  })
+  connection.query(queries.insertIntoTable.addgenre,[data[0],genre],(err)=>{
+    if (err) console.log(`Error: ${err.message}`);
+  })
+}
+
+
+
+
+
 module.exports = {
-  addCompany,
+  addCompany,addMovies
 };
