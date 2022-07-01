@@ -19,13 +19,15 @@ const createTables = {
     "create table if not exists Moviegenre (movie_name varchar(100),foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade, genre varchar(25))",
   // cardinal m-n relations to tables
   actedByTable:
-    "create table if not exists acts(movie_name varchar(100),actor_name varchar(50), role varchar(50) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(actor_name) references actor(actor_name) on delete cascade on update cascade)",
+    "create table if not exists acts(movie_name varchar(100),actor_name varchar(50),director_as_actor varchar(50), role varchar(50) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(actor_name) references actor(actor_name) on delete cascade on update cascade,foreign key(director_as_actor) references director(director_name) on delete cascade on update cascade)",
   directedByTable:
     "create table if not exists directs(movie_name varchar(100),director_name varchar(50), role varchar(50), foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(director_name) references director(director_name) on delete cascade on update cascade)",
-  quoteTable:
-    "create table if not exists MovieQuotes (role_played varchar(50),quote varchar(150),foreign key(role_played) references acts(role) on delete cascade on update cascade)",
   director_act:
-    "create table if not exists DirActs(Movie_name varchar(100),Director_name varchar(50),role varchar(25), foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(Director_name) references director(director_name) on delete cascade on update cascade)",
+      "create table if not exists DirActs(Movie_name varchar(100),Director_name varchar(50),role varchar(25) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(Director_name) references director(director_name) on delete cascade on update cascade)",
+  actorQuoteTable:
+    "create table if not exists actorquotes (role_played varchar(50),quote varchar(150),foreign key(role_played) references acts(role) on delete cascade on update cascade)",
+  directorQuoteTable:
+    "create table if not exists directorquotes (role_played varchar(25),quote varchar(150),foreign key(role_played) references dirActs(role) on delete cascade on update cascade)"
 };
 
 /*
@@ -35,6 +37,12 @@ const insertIntoTable = {
   addProductionCompany: "insert into production_company values(?,?)",
   addgenre:"insert into moviegenre values(?,?)",
   insertIntoMovies: "insert into movie values(?,?,?,?,?)",
+  addActor: "insert into actor values(?,?)",
+  addacting : "insert into acts values(?,?)",
+  addDirector: "insert into director values(?,?)",
+  adddirecting : "insert into directs values(?,?)",
+  addMovieQuotes : "insert into moviequotes values(?,?)",
+  addDirector_as_actor : "insert into diracts values(?,?)",
 };
 
 const showTable = {
@@ -45,6 +53,8 @@ const showTable = {
   showCastDetails: "select * from actor natural join acts",
   showDirector: "select * from select * from director natural join directs",
   showCompany: "select * from production_company",
+  showActors : "Select * from actor",
+  showScript : "Select * form "
 };
 
 module.exports = {
