@@ -11,9 +11,9 @@ const createTables = {
   movieTable:
     "create table if not exists movie (movie_name varchar(100) not null primary key,length varchar(20), year_of_release int(4), plot_outline varchar(250),company_name varchar(50), foreign key(company_name) references production_company(name) on delete cascade on update cascade)",
   directorTable:
-    "create table if not exists director (director_name varchar(50) primary key, director_DOB varchar(10))",
+    "create table if not exists director (director_name varchar(50) primary key, director_DOB varchar(30))",
   actorTable:
-    "create table if not exists actor (actor_name varchar(50) primary key, actor_DOB varchar(10))",
+    "create table if not exists actor (actor_name varchar(50) primary key, actor_DOB varchar(30))",
   // multivalue attribute genre referencing to title of movieTable
   genreTable:
     "create table if not exists Moviegenre (movie_name varchar(100),foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade, genre varchar(25))",
@@ -54,7 +54,7 @@ const showTable = {
   showCastDetails: "select * from actor natural join acts",
   showDirector: "select * from director natural join directs",
   showCompany: "select * from production_company",
-  showActors : "Select actor_name,actor_DOB,movie_name from actor natural join acts",
+  showActors : "Select actor_name,actor_DOB,movie_name from actor natural join acts union select director_name as actor_name ,movie_name,role from diracts",
   showScript : "select * from actorquotes union select * from directorquotes order by role_played"
 };
 
