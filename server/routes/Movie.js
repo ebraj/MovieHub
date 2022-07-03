@@ -1,5 +1,5 @@
 const express = require("express");
-const { connection, displayTable ,insertInto, addTo} = require("../models");
+const { connection, displayTable , addTo} = require("../models");
 
 const movieRouter = express.Router();
 
