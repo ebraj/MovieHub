@@ -38,9 +38,13 @@ function addDirector(data,movie) {
   connection.query(queries.insertIntoTable.adddirecting,[movie,data[0]]);
 }
 
+function addQuotes(data) {
+  connection.query(queries,queries.insertIntoTable.addActorQuotes,data)
+}
+
 
 
 
 module.exports = {
-  addCompany,addMovies,addActors,addDirector,
+  addCompany,addMovies,addActors,addDirector,addQuotes,
 };

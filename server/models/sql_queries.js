@@ -50,7 +50,7 @@ const showTable = {
   showMovies:
     "select moviegenre.movie_name, length,year_of_release, plot_outline,company_name, group_concat(distinct genre) as genres from movie,moviegenre group by moviegenre.movie_name;",
   showCast:
-    "select movie_name ,director_name, group_concat(distinct acts.actor_name) as actors,group_concat(distinct role) as roles from actor,director,acts group by movie_name;",
+    "select acts.movie_name ,director_name, group_concat(distinct acts.actor_name) as actors from directs,acts,actor group by movie_name",
   showCastDetails: "select * from actor natural join acts",
   showDirector: "select * from director natural join directs",
   showCompany: "select * from production_company",

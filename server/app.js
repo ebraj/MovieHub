@@ -10,6 +10,7 @@ const movieRouter = require("./routes/Movie");
 const companyRouter = require("./routes/Company");
 const actorRouter = require("./routes/actor");
 const directorRouter = require("./routes/director");
+const quoteRouter = require("./routes/quotes");
 
 
 /**
@@ -25,6 +26,7 @@ app.use("/", movieRouter);
 app.use("/companies", companyRouter);
 app.use("/actors",actorRouter);
 app.use("/directors",directorRouter);
+app.use("/quotes",quoteRouter);
 
 app.listen(3000, () => {
   console.log(`Server running on port 3000`);
