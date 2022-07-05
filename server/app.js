@@ -5,12 +5,13 @@ const app = express();
 /**
  * Importing the routes
  */
-const castRouter = require("./routes/Cast");
-const movieRouter = require("./routes/Movie");
-const companyRouter = require("./routes/Company");
-const actorRouter = require("./routes/actor");
-const directorRouter = require("./routes/director");
-const quoteRouter = require("./routes/quotes");
+const {
+ castRouter,
+ movieRouter, 
+ companyRouter,
+ actorRouter, 
+ directorRouter,
+ quoteRouter,} = require('./routes');
 
 
 /**
