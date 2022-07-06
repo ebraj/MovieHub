@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { BsSearch } from "react-icons/bs";
 
@@ -7,7 +8,9 @@ function Navbar() {
     <div className="max-w-[1200px] mx-auto space-y-5 sm:space-y-0">
       {/* Top navbar */}
       <div className="flex space-x-5 items-center justify-between">
-        <h2 className="font-bold">MovieHub</h2>
+        <Link passHref href="/">
+          <h2 className="font-bold cursor-pointer">MovieHub 🍿</h2>
+        </Link>
         <button className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold">
           Add Movie
         </button>
