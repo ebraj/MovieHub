@@ -11,4 +11,5 @@ module.exports = {
   displayTable: query.showTable,
   addTo: addDB,
   connectOurDatabase,
+  deleteFrom:query.deleteFrom,
 };
