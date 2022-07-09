@@ -58,9 +58,23 @@ const showTable = {
   showScript : "select * from actorquotes union select * from directorquotes order by role_played"
 };
 
+const deleteFrom = {
+  deleteMovie:"delete from movie where movie_name = ?",
+  deleteGenre: "delete from moviegenre where movie_name = ?",
+  deleteCompany: "delete from production_company where name = ?",
+  deleteActor: "delete from actor where actor_name = ?",
+  deleteDirector: "delete from director where director_name = ? ",
+  deleteActorScript: "delete from actorquotes where role_played = ?",
+  deleteActing: "delete from acts where movie_name = ?",
+  deleteDirecting: "delete from directs where movie_name = ?",
+  deleteDiracting: "delete from diracts where movie_name = ?",
+  deleteDirectorScript: "delete from directorquotes where role_played = ?"
+}
+
 module.exports = {
   createDB,
   createTables,
   insertIntoTable,
   showTable,
+  deleteFrom,
 };
