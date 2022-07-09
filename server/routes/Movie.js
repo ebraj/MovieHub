@@ -1,5 +1,5 @@
 const express = require("express");
-const { connection, displayTable , addTo} = require("../models");
+const { connection, displayTable , addTo,deleteFrom} = require("../models");
 
 const movieRouter = express.Router();
 
@@ -26,7 +26,13 @@ movieRouter.post("/", (req, res) => {
   res.send("New movie added");
 });
 
-
+movieRouter.delete("/movies/:id", (req,res)=>{
+  let m_name = req.params.id;
+  connection.query(deleteFrom.deleteMovie,m_name,(err)=>{
+    if (err){ console.log(`Error: ${err.message}`);return;}
+    res.status(201).send('Movie Deleted');
+  })
+})
 
 
 module.exports = movieRouter;

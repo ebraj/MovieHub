@@ -1,5 +1,5 @@
 const express = require("express");
-const {connection,addTo,displayTable} = require("../models");
+const {connection,addTo,displayTable,deleteFrom} = require("../models");
 
 const companyRouter = express.Router();
 
@@ -20,5 +20,13 @@ companyRouter.post("/", (req, res) => {
   res.send('New Company Added');
 });
 
+
+companyRouter.delete("/:id",(req,res)=>{
+  let c_name = req.params.id;
+  connection.query(deleteFrom.deleteCompany,c_name,(err)=>{
+    if (err){ console.log(`Error: ${err.message}`);return;}
+    res.status(201).send('Company Deleted');
+  });
+});
 
 module.exports = companyRouter;
