@@ -1,18 +1,18 @@
 const express = require("express");
-const {connectOurDatabase} = require('./models');
+const { connectOurDatabase } = require("./models");
 const app = express();
 
 /**
  * Importing the routes
  */
 const {
- castRouter,
- movieRouter, 
- companyRouter,
- actorRouter, 
- directorRouter,
- quoteRouter,} = require('./routes');
-
+  castRouter,
+  movieRouter,
+  companyRouter,
+  actorRouter,
+  directorRouter,
+  quoteRouter,
+} = require("./routes");
 
 /**
  * Express Middleware...
@@ -25,10 +25,10 @@ connectOurDatabase();
 app.use("/casts", castRouter);
 app.use("/", movieRouter);
 app.use("/companies", companyRouter);
-app.use("/actors",actorRouter);
-app.use("/directors",directorRouter);
-app.use("/quotes",quoteRouter);
+app.use("/actors", actorRouter);
+app.use("/directors", directorRouter);
+app.use("/quotes", quoteRouter);
 
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log(`Server running on port 3000`);
 });

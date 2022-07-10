@@ -9,6 +9,7 @@
     font-size: 16.5px;
   }
   body {
+    @apply relative;
     font-family: "Work Sans", sans-serif;
     @apply bg-custom-dark;
     @apply text-custom-white;
@@ -27,4 +28,8 @@
 }
 .grid-container > div:nth-child(4n) > div:first-child {
   background-color: #ffb27a;
+}
+
+.custom-bg {
+  background-color: rgba(0, 0, 0, 0.895);
 }

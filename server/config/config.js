@@ -8,7 +8,7 @@ let connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: process.env.PASSWORD || "",
-  database: "movie_db",
+  // database: "movie_db",
 });
 
 module.exports = {

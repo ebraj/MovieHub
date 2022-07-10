@@ -1,10 +1,13 @@
 import "../styles/globals.css";
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import PopupContext from "../components/contexts/PopupContext";
 
 function MyApp({ Component, pageProps }) {
+  const [showPopup, setShowPopup] = useState(false);
   return (
-    <>
+    <PopupContext.Provider value={{ showPopup, setShowPopup }}>
       <div className="flex flex-col min-h-[100vh]">
         <div className="bg-custom-blue px-5 py-6">
           <Navbar />
@@ -16,7 +19,7 @@ function MyApp({ Component, pageProps }) {
           <Footer />
         </div>
       </div>
-    </>
+    </PopupContext.Provider>
   );
 }
 

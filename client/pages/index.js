@@ -1,8 +1,10 @@
 import Head from "next/head";
 import Card from "../components/Card";
-import MOVIES_DATAS from "../datas/movies.json";
-
-export default function Home() {
+import AddMoviePopup from "../components/AddMoviePopup";
+import PopupContext from "../components/contexts/PopupContext";
+import { useContext } from "react";
+export default function Home({ movies }) {
+  const { showPopup, setShowPopup } = useContext(PopupContext);
   return (
     <>
       <Head>
@@ -14,11 +16,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      {showPopup && (
+        <div className="fixed w-[100%] top-0 right-0 left-0 bottom-0 overflow-y-auto bg-gray-700 min-h-screen grid place-content-center custom-bg">
+          <AddMoviePopup />
+        </div>
+      )}
+
       <div className="max-w-[1200px] mx-auto space-y-5">
         <h2 className="text-3xl md:text-4xl font-black">Movies</h2>
         {/* Grid Container */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 grid-container">
-          {MOVIES_DATAS.map((singleData) => {
+          {movies.map((singleData) => {
             return <Card singleData={singleData} key={singleData.movie_name} />;
           })}
         </div>
@@ -26,3 +34,14 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps = async (contexts) => {
+  const data = await fetch("http://localhost:3001/");
+  const movies = await data.json();
+  console.log(movies);
+  return {
+    props: {
+      movies,
+    },
+  };
+};

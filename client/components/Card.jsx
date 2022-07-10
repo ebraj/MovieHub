@@ -4,9 +4,12 @@ import slugify from "slugify";
 
 function Card({ singleData }) {
   const {
-    movie_name = "Movie Name",
-    year_of_release = "0000",
-    length = "0h 0m",
+    movie_name = "Untitled Movie",
+    length = "Untitled Length",
+    year_of_release = "Untitled Year",
+    plot_outline = "Untitled Plot Outline",
+    company_name = "Untitled Company Name",
+    genre = "Untitled Genre",
   } = singleData;
   const slug = slugify(singleData.movie_name, {
     remove: ":",
@@ -15,7 +18,7 @@ function Card({ singleData }) {
 
   return (
     <>
-      <div key={singleData.movie_name} className="space-y-2 pb-5">
+      <div className="space-y-2 pb-5">
         <div className="h-[300px] rounded-md"></div>
         <Link href={`movie/${slug}`}>
           <h2 className="cursor-pointer">{singleData.movie_name}</h2>

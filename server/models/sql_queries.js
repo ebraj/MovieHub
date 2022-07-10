@@ -23,11 +23,11 @@ const createTables = {
   directedByTable:
     "create table if not exists directs(movie_name varchar(100),director_name varchar(50), foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(director_name) references director(director_name) on delete cascade on update cascade)",
   director_act:
-      "create table if not exists DirActs(Movie_name varchar(100),Director_name varchar(50),role varchar(25) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(Director_name) references director(director_name) on delete cascade on update cascade)",
+    "create table if not exists DirActs(Movie_name varchar(100),Director_name varchar(50),role varchar(25) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(Director_name) references director(director_name) on delete cascade on update cascade)",
   actorQuoteTable:
     "create table if not exists actorquotes (role_played varchar(50),quote varchar(150),foreign key(role_played) references acts(role) on delete cascade on update cascade)",
   directorQuoteTable:
-    "create table if not exists directorquotes (role_played varchar(25),quote varchar(150),foreign key(role_played) references dirActs(role) on delete cascade on update cascade)"
+    "create table if not exists directorquotes (role_played varchar(25),quote varchar(150),foreign key(role_played) references dirActs(role) on delete cascade on update cascade)",
 };
 
 /*
@@ -35,31 +35,32 @@ const createTables = {
 */
 const insertIntoTable = {
   addProductionCompany: "insert into production_company values(?,?)",
-  addgenre:"insert into moviegenre values(?,?)",
+  addgenre: "insert into moviegenre values(?,?)",
   insertIntoMovies: "insert into movie values(?,?,?,?,?)",
   addActor: "insert into actor values(?,?)",
-  addacting : "insert into acts values(?,?)",
+  addacting: "insert into acts values(?,?)",
   addDirector: "insert into director values(?,?)",
-  adddirecting : "insert into directs values(?,?)",
-  addActorQuotes : "insert into actorquotes values(?,?,?)",
-  addDirector_as_actor : "insert into diracts values(?,?)",
-  addDirectorQuotes: "inset into directorquotes values (?,?,?)"
+  adddirecting: "insert into directs values(?,?)",
+  addActorQuotes: "insert into actorquotes values(?,?,?)",
+  addDirector_as_actor: "insert into diracts values(?,?)",
+  addDirectorQuotes: "inset into directorquotes values (?,?,?)",
 };
 
 const showTable = {
-  showMovies:
-    "select distinct * from movie natural join moviegenre",
+  showMovies: "select distinct * from movie natural join moviegenre",
   showCast:
     "select acts.movie_name ,director_name, group_concat(distinct acts.actor_name) as actors from directs,acts,actor group by movie_name",
   showCastDetails: "select * from actor natural join acts",
   showDirector: "select * from director natural join directs",
   showCompany: "select * from production_company",
-  showActors : "Select actor_name,actor_DOB,movie_name from actor natural join acts union select director_name as actor_name ,movie_name,role from diracts",
-  showScript : "select * from actorquotes union select * from directorquotes order by role_played"
+  showActors:
+    "Select actor_name,actor_DOB,movie_name from actor natural join acts union select director_name as actor_name ,movie_name,role from diracts",
+  showScript:
+    "select * from actorquotes union select * from directorquotes order by role_played",
 };
 
 const deleteFrom = {
-  deleteMovie:"delete from movie where movie_name = ?",
+  deleteMovie: "delete from movie where movie_name = ?",
   deleteGenre: "delete from moviegenre where movie_name = ?",
   deleteCompany: "delete from production_company where name = ?",
   deleteActor: "delete from actor where actor_name = ?",
@@ -68,8 +69,8 @@ const deleteFrom = {
   deleteActing: "delete from acts where movie_name = ?",
   deleteDirecting: "delete from directs where movie_name = ?",
   deleteDiracting: "delete from diracts where movie_name = ?",
-  deleteDirectorScript: "delete from directorquotes where role_played = ?"
-}
+  deleteDirectorScript: "delete from directorquotes where role_played = ?",
+};
 
 module.exports = {
   createDB,
