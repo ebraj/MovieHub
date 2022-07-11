@@ -12,18 +12,10 @@ directorRouter.get("/",(req,res)=>{
 
 
 
-
 directorRouter.post("/",(req,res)=>{
   let director = req.body;
-  let movie_name;
-  for(keys in director){
-    if(keys="movie_name"){
-      movie_name = director[keys];
-    }
-  }
-  let newDirector = Object.keys(director).map((key) => {
-    return director[key];
-  });
+  let movie_name = director.movie_name;
+  let newDirector = [director.director_name, director.director_DOB];
   addTo.addDirector(newDirector,movie_name);
   res.send('New Director added');
 })

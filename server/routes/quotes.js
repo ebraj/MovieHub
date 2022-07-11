@@ -12,10 +12,8 @@ quoteRouter.get("/",(req,res)=>{
 });
 
 quoteRouter.post("/",(req,res)=>{
-  let quote = req.body;
-  let newQuote = Object.keys(quote).map((key) => {
-    return quote[key];
-  });
+  let quo = req.body;
+  let newQuote = [quo.role, quo.quote]
   addTo.addQuotes(newQuote);
   res.send('Quote added');
 });
