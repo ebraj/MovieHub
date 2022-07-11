@@ -13,11 +13,9 @@ companyRouter.get("/", (req, res) => {
 
 companyRouter.post("/", (req, res) => {
   let company = req.body;
-  let newCompany = Object.keys(company).map((key) => {
-    return company[key];
-  });
+  let newCompany = [company.name,company.address];
   addTo.addCompany(newCompany);
-  res.send('New Company Added');
+  res.send("Company added");
 });
 
 

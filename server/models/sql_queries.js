@@ -41,9 +41,9 @@ const insertIntoTable = {
   addacting: "insert into acts values(?,?)",
   addDirector: "insert into director values(?,?)",
   adddirecting: "insert into directs values(?,?)",
-  addActorQuotes: "insert into actorquotes values(?,?,?)",
+  addActorQuotes: "insert into actorquotes values(?,?)",
   addDirector_as_actor: "insert into diracts values(?,?)",
-  addDirectorQuotes: "inset into directorquotes values (?,?,?)",
+  addDirectorQuotes: "inset into directorquotes values (?,?)",
 };
 
 const showTable = {

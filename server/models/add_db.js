@@ -31,7 +31,7 @@ function addActors(data) {
 }
 
 function addDirector(data,movie) {
-  connection.query(queries.insertIntoTable.addDirector,[data[0],data[1]],(err)=>{
+  connection.query(queries.insertIntoTable.addDirector,data,(err)=>{
     if (err) {console.log(`Error: ${err.message}`);return}
     console.log('New Director added');
   })
@@ -39,7 +39,10 @@ function addDirector(data,movie) {
 }
 
 function addQuotes(data) {
-  connection.query(queries,queries.insertIntoTable.addActorQuotes,data)
+  connection.query(queries.insertIntoTable.addActorQuotes,data,(err)=>{
+    if (err) {console.log(`Error: ${err.message}`);return}
+    console.log('New Director added');
+  })
 }
 
 
