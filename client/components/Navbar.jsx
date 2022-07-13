@@ -6,7 +6,6 @@ import PopupContext from "./contexts/PopupContext";
 
 function Navbar() {
   const { showPopup, setShowPopup } = useContext(PopupContext);
-  console.log(showPopup);
   const { route } = useRouter();
   return (
     <div className="max-w-[1200px] mx-auto space-y-5 sm:space-y-0">
