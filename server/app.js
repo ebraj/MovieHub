@@ -32,5 +32,5 @@ app.use("/directors", directorRouter);
 app.use("/quotes", quoteRouter);
 
 app.listen(3001, () => {
-  console.log(`Server running on port 3000`);
+  console.log(`Server running on port 3001`);
 });

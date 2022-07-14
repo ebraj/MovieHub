@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
@@ -44,17 +44,14 @@ const customStyles = {
 };
 
 function AddMoviePopup() {
-  const [selectedCompanyOption, setSelectedCompanyOption] = useState("");
-  const [selectedGenreOption, setSelectedGenreOption] = useState("");
+  const [allCompanies, setAllCompanies] = useState([]);
   const { setShowPopup } = useContext(PopupContext);
   const router = useRouter();
 
-  const companyOptions = [
-    { value: "Company1", label: "Company1" },
-    { value: "Company2", label: "Company2" },
-    { value: "Company3", label: "Company3" },
-    { value: "Company4", label: "Company4" },
-  ];
+  const companyOptions = allCompanies.map((singleCompany) => {
+    return { value: singleCompany.name, label: singleCompany.name };
+  });
+
   const genresOptions = [
     { value: "Genre1", label: "Genre1" },
     { value: "Genre2", label: "Genre2" },
@@ -62,6 +59,13 @@ function AddMoviePopup() {
     { value: "Genre4", label: "Genre4" },
   ];
 
+  useEffect(() => {
+    const fetchCompanies = async () => {
+      const response = await axios.get("http://localhost:3001/companies");
+      setAllCompanies(response.data);
+    };
+    fetchCompanies();
+  }, []);
   return (
     <>
       <ToastContainer autoClose={3000} />
@@ -88,7 +92,7 @@ function AddMoviePopup() {
                 console.log(values);
                 toast.success("Movie added successfully!", {
                   onClose: setTimeout(() => {
-                    router.reload(window.location.pathname);
+                    router.reload("/");
                   }, 3500),
                 });
               } catch {

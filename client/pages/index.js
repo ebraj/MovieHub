@@ -16,12 +16,6 @@ export default function Home({ movies }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {showPopup && (
-        <div className="fixed w-[100%] top-0 right-0 left-0 bottom-0 overflow-y-auto bg-gray-700 min-h-screen grid place-content-center custom-bg">
-          <AddMoviePopup />
-        </div>
-      )}
-
       <div className="max-w-[1200px] mx-auto space-y-5">
         <h2 className="text-3xl md:text-4xl font-black">Movies</h2>
         {/* Grid Container */}

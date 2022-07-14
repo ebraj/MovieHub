@@ -12,15 +12,15 @@ function Card({ singleData }) {
     genre = "Untitled Genre",
   } = singleData;
   const slug = slugify(singleData.movie_name, {
-    remove: ":",
-    lower: true,
+    // remove: ":",
+    // lower: true,
   });
 
   return (
     <>
       <div className="space-y-2 pb-5">
         <div className="h-[300px] rounded-md"></div>
-        <Link href={`movie/${slug}`}>
+        <Link href={`http://localhost:3000/movie/${slug}`}>
           <h2 className="cursor-pointer">{singleData.movie_name}</h2>
         </Link>
         <div className="flex items-center space-x-4 text-gray-400">
