@@ -4,13 +4,27 @@ import axios from "axios";
 import slugify from "slugify";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiEdit3 } from "react-icons/fi";
+import { toast, ToastContainer } from "react-toastify";
 
 function Slug({ movieDatas }) {
+  const router = useRouter();
   const [singleMovie, setSingleMovie] = useState({});
   const {
     query: { slug },
   } = useRouter();
 
+  const handleDeleteMovie = () => {
+    try {
+      axios.delete(`http://localhost:3001/movies/${slug}`);
+      toast.success("Movie deleted successfully.", {
+        onClose: setTimeout(() => {
+          router.push("/");
+        }, 3500),
+      });
+    } catch {}
+  };
   useEffect(() => {
     movieDatas.forEach((singleMovie) => {
       const singleSlug = slugify(singleMovie.movie_name, {
@@ -21,9 +35,11 @@ function Slug({ movieDatas }) {
         setSingleMovie(singleMovie);
       }
     });
-  }, []);
+  }, [slug]);
+
   return (
     <>
+      <ToastContainer autoClose={3000} />
       {singleMovie && (
         <div className="max-w-[1200px] mx-auto space-y-14">
           {/* Grid container`` */}
@@ -72,6 +88,13 @@ function Slug({ movieDatas }) {
                     <span className="text-gray-400"> 20th Century Studios</span>
                   </p> */}
                 </div>
+              </div>
+
+              <div className="flex justify-end space-x-5">
+                <FiEdit3 className="text-2xl cursor-pointer" />
+                <span onClick={handleDeleteMovie}>
+                  <RiDeleteBin6Line className="text-2xl cursor-pointer" />
+                </span>
               </div>
             </div>
           </div>
