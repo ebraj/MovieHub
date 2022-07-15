@@ -12,7 +12,7 @@ function Navbar() {
       {/* Top navbar */}
       <div className="flex space-x-5 items-center justify-between">
         <Link passHref href="/">
-          <h2 className="font-bold cursor-pointer">MovieHub 🍿</h2>
+          <span></span>
         </Link>
         <button
           onClick={() => {
