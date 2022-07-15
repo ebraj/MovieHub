@@ -7,19 +7,10 @@ const movieRouter = express.Router();
 let movie = ["/", "/movies"];
 
 movieRouter.get(movie, (req, res) => {
-  connection.query(displayTable.showMovies,(err,results)=>{
+  connection.query(displayTable.showMovieDetail,(err,results)=>{
     if (err) console.log(`Error: ${err.message}`);
     res.send(results);
-  })
-  // connection.query(displayTable.showMovies, (err, results) => {
-  //   if (err) console.log(`Error: ${err.message}`);
-  //   res.write(results);
-  // });
-  // connection.query(displayTable.showCast,(err,results)=>{
-  //   if (err) console.log(`Error: ${err.message}`);
-  //   res.write(results);
-  // });
-  // res.end("all done");
+  });
 });
 
 movieRouter.post("/", (req, res) => {
@@ -58,7 +49,8 @@ movieRouter.put("/movies/:id",(req,res)=>{
   const updatedMovie = [
     movieD.length,movieD.year_of_release,movieD.plot_outline,movieD.company_name,movie_title
   ];
-  connection.query(editTable.editMovie,movieD,(err)=>{
+
+  connection.query(editTable.editMovie,updatedMovie,(err)=>{
     if (err) console.log(`Error: ${err.message}`);
   });
   res.send("Movie updated");

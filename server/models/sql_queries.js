@@ -54,7 +54,7 @@ const insertIntoTable = {
 
 const showTable = {
   showMovies: "select distinct * from movie natural join moviegenre",
-  showMovieDetail: "select * from movie natural join acts natural join directs natural join moviegenre",
+  showMovieDetail: "select movie.movie_name,length,year_of_release,plot_outline,company_name,genre,group_concat(distinct actor_name) as actors,director_name from movie natural join acts natural join directs,moviegenre group by movie_name;",
   showCast:
     "select acts.movie_name ,director_name, group_concat(distinct acts.actor_name) as actors from directs,acts,actor group by movie_name",
   showCastDetails: "select * from actor natural join acts",
