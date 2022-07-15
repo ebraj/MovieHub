@@ -1,15 +1,25 @@
 const express = require("express");
 const { connection, displayTable, addTo, deleteFrom } = require("../models");
+const { editTable } = require("../models/sql_queries");
 
 const movieRouter = express.Router();
 
 let movie = ["/", "/movies"];
 
 movieRouter.get(movie, (req, res) => {
-  connection.query(displayTable.showMovies, (err, results) => {
+  connection.query(displayTable.showMovies,(err,results)=>{
     if (err) console.log(`Error: ${err.message}`);
     res.send(results);
-  });
+  })
+  // connection.query(displayTable.showMovies, (err, results) => {
+  //   if (err) console.log(`Error: ${err.message}`);
+  //   res.write(results);
+  // });
+  // connection.query(displayTable.showCast,(err,results)=>{
+  //   if (err) console.log(`Error: ${err.message}`);
+  //   res.write(results);
+  // });
+  // res.end("all done");
 });
 
 movieRouter.post("/", (req, res) => {
@@ -28,7 +38,8 @@ movieRouter.post("/", (req, res) => {
 });
 
 movieRouter.delete("/movies/:id", (req, res) => {
-  let m_name = req.params.id;
+  let im_name = req.params.id;
+  let m_name = im_name.replace("-"," ");
   connection.query(deleteFrom.deleteMovie, m_name, (err) => {
     if (err) {
       console.log(`Error: ${err.message}`);
@@ -36,6 +47,19 @@ movieRouter.delete("/movies/:id", (req, res) => {
     }
     res.status(201).send("Movie Deleted");
   });
+});
+
+movieRouter.put("/movies/:id",(req,res)=>{
+  let im_name = req.params.id;
+  let movie_title = im_name.replace("-"," ");
+  let movieD = req.body;
+  const updatedMovie = [
+    movieD.length,movieD.year_of_release,movieD.plot_outline,movieD.company_name,movie_title
+  ];
+  connection.query(editTable.editMovie,movieD,(err)=>{
+    if (err) console.log(`Error: ${err.message}`);
+  });
+  res.send("Movie updated");
 });
 
 module.exports = movieRouter;

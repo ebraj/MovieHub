@@ -46,7 +46,12 @@ function addQuotes(data) {
 }
 
 
-
+function editMovie(data,MovieName){
+  connection.query(queries.editTable.editMovie,data,(err)=>{
+    if (err) {console.log(`Error: ${err.message}`);return}
+    console.log('Movie updated');
+  })
+}
 
 module.exports = {
   addCompany,addMovies,addActors,addDirector,addQuotes,
