@@ -39,7 +39,8 @@ movieRouter.post("/", (req, res) => {
 
 movieRouter.delete("/movies/:id", (req, res) => {
   let im_name = req.params.id;
-  let m_name = im_name.replace("-"," ");
+  let m_name = im_name.replace(/-/g," ");
+  console.log(m_name);
   connection.query(deleteFrom.deleteMovie, m_name, (err) => {
     if (err) {
       console.log(`Error: ${err.message}`);
@@ -51,7 +52,8 @@ movieRouter.delete("/movies/:id", (req, res) => {
 
 movieRouter.put("/movies/:id",(req,res)=>{
   let im_name = req.params.id;
-  let movie_title = im_name.replace("-"," ");
+  let movie_title = im_name.replace(/-/g," ");
+
   let movieD = req.body;
   const updatedMovie = [
     movieD.length,movieD.year_of_release,movieD.plot_outline,movieD.company_name,movie_title
