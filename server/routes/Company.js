@@ -4,7 +4,7 @@ const { connection, addTo, displayTable, deleteFrom } = require("../models");
 const companyRouter = express.Router();
 
 companyRouter.get("/", (req, res) => {
-  connection.query(displayTable.showCompany, (err, results) => {
+  connection.query(displayTable.showCompanyDetail, (err, results) => {
     if (err) console.log(`Error: ${err.message}`);
     res.send(results);
   });
@@ -18,7 +18,8 @@ companyRouter.post("/", (req, res) => {
 });
 
 companyRouter.delete("/:id", (req, res) => {
-  let c_name = req.params.id;
+  let cname = req.params.id;
+  let c_name = cname.replace(/-/g," ");
   connection.query(deleteFrom.deleteCompany, c_name, (err) => {
     if (err) {
       console.log(`Error: ${err.message}`);

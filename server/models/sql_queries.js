@@ -54,7 +54,7 @@ const insertIntoTable = {
 
 const showTable = {
   showMovies: "select distinct * from movie natural join moviegenre",
-  showMovieDetail: "select * from movie natural join acts natural join directs natural join moviegenre",
+  showMovieDetail: "select movie.movie_name,length,year_of_release,plot_outline,company_name,genre,group_concat(distinct actor_name) as actors,director_name from movie natural join acts natural join directs,moviegenre group by movie_name;",
   showCast:
     "select acts.movie_name ,director_name, group_concat(distinct acts.actor_name) as actors from directs,acts,actor group by movie_name",
   showCastDetails: "select * from actor natural join acts",
@@ -64,6 +64,8 @@ const showTable = {
     "Select actor_name,actor_DOB,movie_name from actor natural join acts union select director_name as actor_name ,movie_name,role from diracts",
   showScript:
     "select * from actorquotes union select * from directorquotes order by role_played",
+  showCompanyDetail:
+  "select m.company_name, group_concat(m.movie_name) as movies, p.address from movie m inner join production_company p on m.company_name = p.name group by m.company_name",
 };
 
 const deleteFrom = {

@@ -54,5 +54,5 @@ function editMovie(data,MovieName){
 }
 
 module.exports = {
-  addCompany,addMovies,addActors,addDirector,addQuotes,
+  addCompany,addMovies,addActors,addDirector,addQuotes,editMovie,
 };
