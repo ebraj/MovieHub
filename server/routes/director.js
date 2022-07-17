@@ -1,5 +1,7 @@
 const express = require("express");
-const { connection,addTo, displayTable } = require("../models");
+const { connection,addTo, displayTable,deleteFrom} = require("../models");
+const { editMovie } = require("../models/add_db");
+const { editTable } = require("../models/sql_queries");
 
 const directorRouter = express.Router();
 
@@ -18,8 +20,32 @@ directorRouter.post("/",(req,res)=>{
   let newDirector = [director.director_name, director.director_DOB];
   addTo.addDirector(newDirector,movie_name);
   res.send('New Director added');
-})
+});
 
+directorRouter.delete("/:id",(req,res)=>{
+  let directr = req.params.id;
+  let directr_name = directr.replace(/-/g," ");
+  connection.query(deleteFrom.deleteDirector,directr_name,(err)=>{
+      if (err) {
+      console.log(`Error: ${err.message}`);
+      return;
+    }
+    res.send("Director Deleted");
+  });
+});
+
+directorRouter.put("/:id",(req,res)=>{
+  let directr = req.params.id;
+  let directr_name = directr.replace(/-/g," ");
+
+  let directorDetail = req.body;
+  const updatedDirectorDOB = directorDetail.director_DOB;
+
+  connection.query(editTable.editDirector,[updatedDirectorDOB,directr_name],(err)=>{
+    if (err) console.log(`Error: ${err.message}`);
+    res.send("Director updated");
+  });
+});
 
 
 

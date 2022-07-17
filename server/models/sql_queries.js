@@ -83,10 +83,12 @@ const deleteFrom = {
 };
 
 const editTable = {
-  editMovie:
-    "update movie set length = ?,year_of_release=?,plot_outline =?,company_name =? where movie_name = ?",
-  editGenre: " update moviegenre set genre = ? where movie_name = ?",
-};
+  editMovie:"update movie set length = ?,year_of_release=?,plot_outline =?,company_name =? where movie_name = ?", 
+  editGenre : " update moviegenre set genre = ? where movie_name = ?",
+  editDirector : "update director set director_DOB = ? where director_name = ?",
+  editActor : "update actor set actor_DOB = ? where actor_name = ?",
+  editCompany : "update production_company set address = ? where name = ?",
+}
 
 module.exports = {
   createDB,

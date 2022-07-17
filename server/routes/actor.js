@@ -34,4 +34,19 @@ actorRouter.delete("/:id",(req,res)=>{
   });
 });
 
+
+actorRouter.put("/:id",(req,res)=>{
+  let actr = req.params.id;
+  let actor_name = actr.replace(/-/g," ");
+
+  let actorDetail = req.body;
+  const updatedactorDOB = directorDetail.actor_DOB;
+
+  connection.query(editTable.editActor,[updatedactorDOB,actor_name],(err)=>{
+    if (err) console.log(`Error: ${err.message}`);
+    res.send("Actor updated");
+  });
+});
+
+
 module.exports = actorRouter;
