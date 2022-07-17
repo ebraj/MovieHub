@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import { BsSearch } from "react-icons/bs";
 import PopupContext from "./contexts/PopupContext";
+import Image from "next/image";
 
 function Navbar() {
   const { showPopup, setShowPopup } = useContext(PopupContext);
@@ -10,10 +11,31 @@ function Navbar() {
   return (
     <div className="max-w-[1200px] mx-auto space-y-5 sm:space-y-0">
       {/* Top navbar */}
-      <div className="flex space-x-5 items-center justify-between">
-        <Link passHref href="/">
-          <span>Logo</span>
-        </Link>
+      <div className="flex flex-col items-center space-y-5 md:flex-row md:space-x-5 md:space-y-0 justify-center">
+        <div className="flex-1">
+          <div className="w-[150px] cursor-pointer">
+            <Link passHref href="/">
+              <Image
+                src="/logo.png"
+                width={1638}
+                height={408}
+                layout="responsive"
+              />
+            </Link>
+          </div>
+        </div>
+
+        <ul className="flex items-center space-x-5">
+          <li>
+            <Link href="/actors">Actors</Link>
+          </li>
+          <li>
+            <Link href="/directors">Directors</Link>
+          </li>
+          <li>
+            <Link href="/companies">Companies</Link>
+          </li>
+        </ul>
         <button
           onClick={() => {
             setShowPopup(true);
