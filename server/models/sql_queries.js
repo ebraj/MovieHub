@@ -54,7 +54,8 @@ const insertIntoTable = {
 
 const showTable = {
   showMovies: "select distinct * from movie natural join moviegenre",
-  showMovieDetail: "select movie.movie_name,length,year_of_release,plot_outline,company_name,genre,group_concat(distinct actor_name) as actors,director_name from movie natural join acts natural join directs,moviegenre group by movie_name;",
+  showMovieDetail:
+    "select movie.movie_name,length,year_of_release,plot_outline,company_name,genre,group_concat(distinct actor_name) as actors,director_name from movie natural join acts natural join directs,moviegenre group by movie_name",
   showCast:
     "select acts.movie_name ,director_name, group_concat(distinct acts.actor_name) as actors from directs,acts,actor group by movie_name",
   showCastDetails: "select * from actor natural join acts",
@@ -65,7 +66,7 @@ const showTable = {
   showScript:
     "select * from actorquotes union select * from directorquotes order by role_played",
   showCompanyDetail:
-  "select m.company_name, group_concat(m.movie_name) as movies, p.address from movie m inner join production_company p on m.company_name = p.name group by m.company_name",
+    "select m.company_name, group_concat(m.movie_name) as movies, p.address from movie m inner join production_company p on m.company_name = p.name group by m.company_name",
 };
 
 const deleteFrom = {
@@ -86,7 +87,7 @@ const editTable = {
   editGenre : " update moviegenre set genre = ? where movie_name = ?",
   editDirector : "update director set director_DOB = ? where director_name = ?",
   editActor : "update actor set actor_DOB = ? where actor_name = ?",
-  editCompany : " ",
+  editCompany : "update production_company set address = ? where name = ?",
 }
 
 module.exports = {
