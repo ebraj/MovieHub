@@ -64,6 +64,8 @@ const showTable = {
     "Select actor_name,actor_DOB,movie_name from actor natural join acts union select director_name as actor_name ,movie_name,role from diracts",
   showScript:
     "select * from actorquotes union select * from directorquotes order by role_played",
+  showCompanyDetail:
+  "select m.company_name, group_concat(m.movie_name) as movies, p.address from movie m inner join production_company p on m.company_name = p.name group by m.company_name",
 };
 
 const deleteFrom = {
