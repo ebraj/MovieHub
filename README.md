@@ -1,0 +1,1 @@
+select movie.movie_name,length,year_of_release,plot_outline,company_name,genre,group_concat(distinct actor_name) as actors,director_name from movie natural join acts natural join directs,moviegenre group by movie_name

@@ -1,6 +1,5 @@
-const {connection} = require('../config/config');
-const {createDB,createTables} = require('./sql_queries');
-
+const { connection } = require("../config/config");
+const { createDB, createTables } = require("./sql_queries");
 
 function connectOurDatabase() {
   connection.connect();

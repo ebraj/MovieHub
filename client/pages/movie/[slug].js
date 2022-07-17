@@ -1,5 +1,4 @@
 import Card from "../../components/Card";
-import MOVIES_DATAS from "../../datas/movies.json";
 import axios from "axios";
 import slugify from "slugify";
 import { useRouter } from "next/router";
@@ -65,18 +64,17 @@ function Slug({ movieDatas }) {
                     <span>Duration:</span>
                     <span className="text-gray-400"> {singleMovie.length}</span>
                   </p>
-                  {/* <p>
+                  <p>
                     <span>Director:</span>
-                    <span className="text-gray-400"> The Don</span>
-                  </p> */}
-                  {/* <p>
-                    <span>Casts:</span>
                     <span className="text-gray-400">
                       {" "}
-                      Joey King, Ngô Thanh Vân, Dominic Cooper, Ivo Arakov, Olga
-                      Kurylenko
+                      {singleMovie.director_name}
                     </span>
-                  </p> */}
+                  </p>
+                  <p>
+                    <span>Actors:</span>
+                    <span className="text-gray-400">{singleMovie.actors}</span>
+                  </p>
                 </div>
                 <div className="space-y-2">
                   <p>

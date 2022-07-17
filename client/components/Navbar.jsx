@@ -12,7 +12,7 @@ function Navbar() {
       {/* Top navbar */}
       <div className="flex space-x-5 items-center justify-between">
         <Link passHref href="/">
-          <span></span>
+          <span>Logo</span>
         </Link>
         <button
           onClick={() => {
