@@ -1,5 +1,6 @@
 const express = require("express");
 const { connection, addTo, displayTable, deleteFrom } = require("../models");
+const { editTable } = require("../models/sql_queries");
 
 const companyRouter = express.Router();
 
@@ -26,6 +27,22 @@ companyRouter.delete("/:id", (req, res) => {
       return;
     }
     res.status(201).send("Company Deleted");
+  });
+});
+
+
+companyRouter.put("/:id",(req,res)=>{
+  let cname = req.params.id;
+  let c_name = cname.replace(/-/g," ");
+
+  let companyDetail = req.body;
+  let updatedCompanyAddress = companyDetail.address;
+  connection.query(editTable.editCompany,[updatedCompanyAddress,c_name],(err)=>{
+      if (err) {
+      console.log(`Error: ${err.message}`);
+      return;
+    }
+    res.send("Company Updated");
   });
 });
 
