@@ -8,13 +8,13 @@ import { useRouter } from "next/router";
 
 function DirectorCard({ singleDirector }) {
   const router = useRouter();
-  const actorSlug = slugify(singleDirector.director_name, {});
-  const handleDeleteCompany = () => {
+  const directorSlug = slugify(singleDirector.director_name, {});
+  const handleDeleteDirector = () => {
     try {
-      axios.delete(`http://localhost:3001/actors/${actorSlug}`);
-      toast.success("Company deleted successfully.", {
+      axios.delete(`http://localhost:3001/directors/${directorSlug}`);
+      toast.success("Director deleted successfully.", {
         onClose: setTimeout(() => {
-          router.push("/actors");
+          router.push("/directors");
         }, 3500),
       });
     } catch {}
@@ -31,7 +31,7 @@ function DirectorCard({ singleDirector }) {
           </div>
           <div className="flex space-x-5">
             <FiEdit3 className="text-xl cursor-pointer" />
-            <span onClick={handleDeleteCompany}>
+            <span onClick={handleDeleteDirector}>
               <RiDeleteBin6Line className="text-xl cursor-pointer" />
             </span>
           </div>
