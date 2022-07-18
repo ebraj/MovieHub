@@ -6,7 +6,6 @@ import * as Yup from "yup";
 import Select from "react-select";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import PopupContext from "./contexts/PopupContext";
 
 /**
  * Validation Schema added.
@@ -43,13 +42,18 @@ const customStyles = {
   }),
 };
 
-function UpdateMoviePopup({ handleEditMovieCancel }) {
+function UpdateMoviePopup({ handleEditMovieCancel, singleMovie }) {
   const [allCompanies, setAllCompanies] = useState([]);
-  const { setShowPopup } = useContext(PopupContext);
   const router = useRouter();
+  const {
+    query: { slug },
+  } = useRouter();
 
   const companyOptions = allCompanies.map((singleCompany) => {
-    return { value: singleCompany.name, label: singleCompany.name };
+    return {
+      value: singleCompany.company_name,
+      label: singleCompany.company_name,
+    };
   });
 
   const genresOptions = [
@@ -73,26 +77,18 @@ function UpdateMoviePopup({ handleEditMovieCancel }) {
         <div className="space-y-5">
           {/* All about the form to add the movie */}
           <Formik
-            initialValues={{
-              movie_name: "",
-              length: "",
-              year_of_release: "",
-              plot_outline: "",
-              company_name: "",
-              genres: "",
-            }}
+            initialValues={singleMovie}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
+              console.log(values);
               try {
-                const response = await axios.post(
-                  "http://localhost:3001",
+                const response = await axios.put(
+                  `http://localhost:3001/movies/${slug}`,
                   values
                 );
-                console.log(response.data);
-                console.log(values);
                 toast.success("Movie added successfully!", {
                   onClose: setTimeout(() => {
-                    router.reload("/");
+                    router.reload(`/movie/${slug}`);
                   }, 3500),
                 });
               } catch {
@@ -110,6 +106,7 @@ function UpdateMoviePopup({ handleEditMovieCancel }) {
                       name="movie_name"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
+                      disabled
                     ></Field>
                     <ErrorMessage
                       name="movie_name"

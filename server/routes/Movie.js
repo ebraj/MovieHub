@@ -7,7 +7,7 @@ const movieRouter = express.Router();
 let movie = ["/", "/movies"];
 
 movieRouter.get(movie, (req, res) => {
-  connection.query(displayTable.showMovieDetail, (err, results) => {
+  connection.query(displayTable.showMovies, (err, results) => {
     if (err) console.log(`Error: ${err.message}`);
     res.send(results);
   });
