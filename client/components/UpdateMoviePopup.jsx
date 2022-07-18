@@ -17,7 +17,7 @@ const requiredSchema = Yup.object({
   year_of_release: Yup.number().required(),
   plot_outline: Yup.string().required(),
   company_name: Yup.string().required(),
-  genre: Yup.string().required(),
+  genres: Yup.string().required(),
 });
 
 /**
@@ -43,16 +43,13 @@ const customStyles = {
   }),
 };
 
-function AddMoviePopup() {
+function UpdateMoviePopup({ handleEditMovieCancel }) {
   const [allCompanies, setAllCompanies] = useState([]);
   const { setShowPopup } = useContext(PopupContext);
   const router = useRouter();
 
   const companyOptions = allCompanies.map((singleCompany) => {
-    return {
-      value: singleCompany.company_name,
-      label: singleCompany.company_name,
-    };
+    return { value: singleCompany.name, label: singleCompany.name };
   });
 
   const genresOptions = [
@@ -82,7 +79,7 @@ function AddMoviePopup() {
               year_of_release: "",
               plot_outline: "",
               company_name: "",
-              genre: "",
+              genres: "",
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
@@ -172,12 +169,12 @@ function AddMoviePopup() {
                         options={genresOptions}
                         styles={customStyles}
                         onChange={(selectedOption) => {
-                          setFieldValue("genre", selectedOption.value);
+                          setFieldValue("genres", selectedOption.value);
                         }}
                       />
                     </div>
                     <ErrorMessage
-                      name="genre"
+                      name="genres"
                       component="p"
                       className="text-red-400"
                     />
@@ -200,12 +197,12 @@ function AddMoviePopup() {
                       className="px-5 py-4 rounded-md bg-green-400 w-full"
                       type="submit"
                     >
-                      Submit
+                      Update
                     </button>
                     <button
                       className="px-5 py-4 rounded-md bg-orange-400 w-full"
                       onClick={() => {
-                        setShowPopup(false);
+                        handleEditMovieCancel();
                       }}
                     >
                       Cancel
@@ -221,4 +218,4 @@ function AddMoviePopup() {
   );
 }
 
-export default AddMoviePopup;
+export default UpdateMoviePopup;
