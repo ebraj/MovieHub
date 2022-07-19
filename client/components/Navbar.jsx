@@ -3,10 +3,17 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import { BsSearch } from "react-icons/bs";
 import PopupContext from "./contexts/PopupContext";
+import ActorPopupContext from "./contexts/ActorPopupContext";
+import CompanyPopupContext from "./contexts/CompanyPopupContext";
+import DirectorPopupContext from "./contexts/DirectorPopupContext";
+
 import Image from "next/image";
 
 function Navbar() {
   const { showPopup, setShowPopup } = useContext(PopupContext);
+  const { showActorPopup, setShowActorPopup } = useContext(ActorPopupContext);
+  const { showDirectorPopup, setShowDirectorPopup } =
+    useContext(DirectorPopupContext);
   const { route } = useRouter();
   return (
     <div className="max-w-[1200px] mx-auto space-y-5 sm:space-y-0">
@@ -36,14 +43,46 @@ function Navbar() {
             <Link href="/companies">Companies</Link>
           </li>
         </ul>
-        <button
-          onClick={() => {
-            setShowPopup(true);
-          }}
-          className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold"
-        >
-          Add Movie
-        </button>
+        {route === "/" && (
+          <button
+            onClick={() => {
+              setShowPopup(true);
+            }}
+            className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold"
+          >
+            Add Movie
+          </button>
+        )}
+        {route === "/actors" && (
+          <button
+            onClick={() => {
+              setShowActorPopup(true);
+            }}
+            className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold"
+          >
+            Add Actor
+          </button>
+        )}
+        {route === "/directors" && (
+          <button
+            onClick={() => {
+              setShowPopup(true);
+            }}
+            className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold"
+          >
+            Add Director
+          </button>
+        )}
+        {route === "/companies" && (
+          <button
+            onClick={() => {
+              setShowPopup(true);
+            }}
+            className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold"
+          >
+            Add Company
+          </button>
+        )}
       </div>
 
       {/* Searching movie */}
