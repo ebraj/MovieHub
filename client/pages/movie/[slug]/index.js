@@ -1,4 +1,4 @@
-import Card from "../../components/Card";
+import Card from "../../../components/Card";
 import axios from "axios";
 import slugify from "slugify";
 import { useRouter } from "next/router";
@@ -6,14 +6,22 @@ import { useState, useEffect } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit3 } from "react-icons/fi";
 import { toast, ToastContainer } from "react-toastify";
+import UpdateMoviePopup from "../../../components/UpdateMoviePopup";
 
 function Slug({ movieDatas }) {
   const router = useRouter();
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [singleMovie, setSingleMovie] = useState({});
   const {
     query: { slug },
   } = useRouter();
 
+  const handleEditMovie = () => {
+    setShowUpdatePopup(true);
+  };
+  const handleEditMovieCancel = () => {
+    setShowUpdatePopup(false);
+  };
   const handleDeleteMovie = () => {
     try {
       axios.delete(`http://localhost:3001/movies/${slug}`);
@@ -38,6 +46,14 @@ function Slug({ movieDatas }) {
 
   return (
     <>
+      {showUpdatePopup && (
+        <div className="fixed w-[100%] top-0 right-0 left-0 bottom-0 overflow-y-auto bg-gray-700 min-h-screen grid place-content-center custom-bg">
+          <UpdateMoviePopup
+            handleEditMovieCancel={handleEditMovieCancel}
+            singleMovie={singleMovie}
+          />
+        </div>
+      )}
       <ToastContainer autoClose={3000} />
       {singleMovie && (
         <div className="max-w-[1200px] mx-auto space-y-14">
@@ -89,7 +105,9 @@ function Slug({ movieDatas }) {
               </div>
 
               <div className="flex justify-end space-x-5">
-                <FiEdit3 className="text-2xl cursor-pointer" />
+                <span onClick={handleEditMovie}>
+                  <FiEdit3 className="text-2xl cursor-pointer" />
+                </span>
                 <span onClick={handleDeleteMovie}>
                   <RiDeleteBin6Line className="text-2xl cursor-pointer" />
                 </span>

@@ -12,7 +12,7 @@ function ActorCard({ singleActor }) {
   const handleDeleteCompany = () => {
     try {
       axios.delete(`http://localhost:3001/actors/${actorSlug}`);
-      toast.success("Company deleted successfully.", {
+      toast.success("Actor deleted successfully.", {
         onClose: setTimeout(() => {
           router.push("/actors");
         }, 3500),

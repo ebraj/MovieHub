@@ -6,7 +6,6 @@ import * as Yup from "yup";
 import Select from "react-select";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import PopupContext from "./contexts/PopupContext";
 
 /**
  * Validation Schema added.
@@ -17,7 +16,7 @@ const requiredSchema = Yup.object({
   year_of_release: Yup.number().required(),
   plot_outline: Yup.string().required(),
   company_name: Yup.string().required(),
-  genre: Yup.string().required(),
+  genres: Yup.string().required(),
 });
 
 /**
@@ -43,10 +42,12 @@ const customStyles = {
   }),
 };
 
-function AddMoviePopup() {
+function UpdateMoviePopup({ handleEditMovieCancel, singleMovie }) {
   const [allCompanies, setAllCompanies] = useState([]);
-  const { setShowPopup } = useContext(PopupContext);
   const router = useRouter();
+  const {
+    query: { slug },
+  } = useRouter();
 
   const companyOptions = allCompanies.map((singleCompany) => {
     return {
@@ -76,26 +77,18 @@ function AddMoviePopup() {
         <div className="space-y-5">
           {/* All about the form to add the movie */}
           <Formik
-            initialValues={{
-              movie_name: "",
-              length: "",
-              year_of_release: "",
-              plot_outline: "",
-              company_name: "",
-              genre: "",
-            }}
+            initialValues={singleMovie}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
+              console.log(values);
               try {
-                const response = await axios.post(
-                  "http://localhost:3001",
+                const response = await axios.put(
+                  `http://localhost:3001/movies/${slug}`,
                   values
                 );
-                console.log(response.data);
-                console.log(values);
                 toast.success("Movie added successfully!", {
                   onClose: setTimeout(() => {
-                    router.reload("/");
+                    router.reload(`/movie/${slug}`);
                   }, 3500),
                 });
               } catch {
@@ -113,6 +106,7 @@ function AddMoviePopup() {
                       name="movie_name"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
+                      disabled
                     ></Field>
                     <ErrorMessage
                       name="movie_name"
@@ -172,12 +166,12 @@ function AddMoviePopup() {
                         options={genresOptions}
                         styles={customStyles}
                         onChange={(selectedOption) => {
-                          setFieldValue("genre", selectedOption.value);
+                          setFieldValue("genres", selectedOption.value);
                         }}
                       />
                     </div>
                     <ErrorMessage
-                      name="genre"
+                      name="genres"
                       component="p"
                       className="text-red-400"
                     />
@@ -200,12 +194,12 @@ function AddMoviePopup() {
                       className="px-5 py-4 rounded-md bg-green-400 w-full"
                       type="submit"
                     >
-                      Submit
+                      Update
                     </button>
                     <button
                       className="px-5 py-4 rounded-md bg-orange-400 w-full"
                       onClick={() => {
-                        setShowPopup(false);
+                        handleEditMovieCancel();
                       }}
                     >
                       Cancel
@@ -221,4 +215,4 @@ function AddMoviePopup() {
   );
 }
 
-export default AddMoviePopup;
+export default UpdateMoviePopup;

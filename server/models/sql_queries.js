@@ -88,7 +88,7 @@ const editTable = {
   editDirector : "update director set director_DOB = ? where director_name = ?",
   editActor : "update actor set actor_DOB = ? where actor_name = ?",
   editCompany : "update production_company set address = ? where name = ?",
-}
+};
 
 module.exports = {
   createDB,
