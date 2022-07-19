@@ -21,13 +21,14 @@ companyRouter.post("/", (req, res) => {
 companyRouter.delete("/:id", (req, res) => {
   let cname = req.params.id;
   let c_name = cname.replace(/-/g," ");
-  connection.query(deleteFrom.deleteCompany, c_name, (err) => {
-    if (err) {
-      console.log(`Error: ${err.message}`);
-      return;
-    }
-    res.status(201).send("Company Deleted");
-  });
+  console.log(c_name);
+  // connection.query(deleteFrom.deleteCompany, c_name, (err) => {
+  //   if (err) {
+  //     console.log(`Error: ${err.message}`);
+  //     return;
+  //   }
+  //   res.status(201).send("Company Deleted");
+  // });
 });
 
 
@@ -45,5 +46,4 @@ companyRouter.put("/:id",(req,res)=>{
     res.send("Company Updated");
   });
 });
-
 module.exports = companyRouter;
