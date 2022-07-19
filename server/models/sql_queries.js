@@ -53,9 +53,10 @@ const insertIntoTable = {
 };
 
 const showTable = {
-  showMovies: "select distinct * from movie natural join moviegenre",
+  showMovies: "select movie.movie_name,length,year_of_release,plot_outline,company_name,group_concat(distinct genre) as genres from movie natural join moviegenre group by movie_name",
+  showMovie : "select distinct * from movie natural join moviegenre where movie.movie_name = ? ",
   showMovieDetail:
-    "select movie.movie_name,length,year_of_release,plot_outline,company_name,genre,group_concat(distinct actor_name) as actors,director_name from movie natural join acts natural join directs,moviegenre group by movie_name",
+    "select movie.movie_name,length,year_of_release,plot_outline,company_name,group_concat(distinct genre) as genres,group_concat(distinct actor_name) as actors,director_name from movie natural join acts natural join directs,moviegenre  where movie.movie_name = ? group by movie_name",
   showCast:
     "select acts.movie_name ,director_name, group_concat(distinct acts.actor_name) as actors from directs,acts,actor group by movie_name",
   showCastDetails: "select * from actor natural join acts",

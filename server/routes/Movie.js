@@ -5,21 +5,31 @@ const { editTable } = require("../models/sql_queries");
 const movieRouter = express.Router();
 
 let movie = ["/", "/movies"];
-
-movieRouter.get(movie, (req, res) => {
+movieRouter.get("/movies", (req, res) => {
   connection.query(displayTable.showMovies, (err, results) => {
     if (err) console.log(`Error: ${err.message}`);
     res.send(results);
   });
-  // connection.query(displayTable.showMovies, (err, results) => {
-  //   if (err) console.log(`Error: ${err.message}`);
-  //   res.write(results);
-  // });
-  // connection.query(displayTable.showCast,(err,results)=>{
-  //   if (err) console.log(`Error: ${err.message}`);
-  //   res.write(results);
-  // });
-  // res.end("all done");
+});
+
+movieRouter.get("/movies/:id", (req, res) => {
+  let im_name = req.params.id;
+  let m_name = im_name.replace(/-/g, " ");
+  let finalResult = {};
+  connection.query(displayTable.showMovieDetail, m_name, (err, results) => {
+    if (err) console.log(`Error: ${err.message}`);
+    const isEmpty = Object.keys(results).length === 0;
+    finalResult = results;
+    if (isEmpty) {
+      connection.query(displayTable.showMovie, m_name, (error, result) => {
+        if (error) console.log(`Error: ${error.message}`);
+        finalResult = result;
+        res.send(finalResult);
+      });
+    } else {
+      res.send(finalResult);
+    }
+  });
 });
 
 movieRouter.post("/", (req, res) => {
