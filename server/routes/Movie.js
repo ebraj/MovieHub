@@ -5,7 +5,7 @@ const { editTable } = require("../models/sql_queries");
 const movieRouter = express.Router();
 
 let movie = ["/", "/movies"];
-movieRouter.get("/movies", (req, res) => {
+movieRouter.get(movie, (req, res) => {
   connection.query(displayTable.showMovies, (err, results) => {
     if (err) console.log(`Error: ${err.message}`);
     res.send(results);
