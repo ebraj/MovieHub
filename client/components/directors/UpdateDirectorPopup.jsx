@@ -40,7 +40,7 @@ const customStyles = {
   }),
 };
 
-function AddDirectorPopup() {
+function UpdateDirectorPopup({ singleDirector, handleShowUpdatePopup }) {
   const [allMovies, setAllMovies] = useState([]);
   const { showDirectorPopup, setShowDirectorPopup } =
     useContext(DirectorPopupContext);
@@ -68,9 +68,9 @@ function AddDirectorPopup() {
           {/* All about the form to add the movie */}
           <Formik
             initialValues={{
-              director_name: "",
-              director_DOB: "",
-              movie_name: "",
+              director_name: singleDirector.director_name,
+              director_DOB: singleDirector.director_DOB,
+              movie_name: singleDirector.movie_name,
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
@@ -165,7 +165,7 @@ function AddDirectorPopup() {
                     <button
                       className="px-5 py-4 rounded-md bg-orange-400 w-full"
                       onClick={() => {
-                        setShowDirectorPopup(false);
+                        handleShowUpdatePopup();
                       }}
                     >
                       Cancel
@@ -181,4 +181,4 @@ function AddDirectorPopup() {
   );
 }
 
-export default AddDirectorPopup;
+export default UpdateDirectorPopup;

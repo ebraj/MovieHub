@@ -4,6 +4,7 @@ const directorRouter = require("./director");
 const quoteRouter = require("./quotes");
 const movieRouter = require("./Movie");
 const castRouter = require("./Cast");
+const genreRouter = require("./genre");
 
 module.exports = {
   actorRouter,
@@ -12,4 +13,5 @@ module.exports = {
   quoteRouter,
   movieRouter,
   castRouter,
+  genreRouter,
 };

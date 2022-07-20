@@ -11,6 +11,7 @@ import DirectorPopupContext from "../components/contexts/DirectorPopupContext";
 import AddMoviePopup from "../components/AddMoviePopup";
 import AddActorPopup from "../components/actors/AddActorPopup";
 import AddCompanyPopup from "../components/companies/AddCompanyPopup";
+import AddDirectorPopup from "../components/directors/AddDirectorPopup";
 
 function MyApp({ Component, pageProps }) {
   const [showPopup, setShowPopup] = useState(false);
@@ -24,7 +25,7 @@ function MyApp({ Component, pageProps }) {
           value={{ showCompanyPopup, setShowCompanyPopup }}
         >
           <DirectorPopupContext.Provider
-            value={{ showDirectorPopup, setShowCompanyPopup }}
+            value={{ showDirectorPopup, setShowDirectorPopup }}
           >
             {showPopup && (
               <div className="fixed w-[100%] top-0 right-0 left-0 bottom-0 overflow-y-auto bg-gray-700 min-h-screen grid place-content-center custom-bg">
@@ -44,7 +45,7 @@ function MyApp({ Component, pageProps }) {
             )}
             {showDirectorPopup && (
               <div className="fixed w-[100%] top-0 right-0 left-0 bottom-0 overflow-y-auto bg-gray-700 min-h-screen grid place-content-center custom-bg">
-                <AddCompanyPopup />
+                <AddDirectorPopup />
               </div>
             )}
 
