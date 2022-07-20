@@ -13,6 +13,7 @@ const {
   actorRouter,
   directorRouter,
   quoteRouter,
+  genreRouter,
 } = require("./routes");
 
 /**
@@ -30,6 +31,7 @@ app.use("/companies", companyRouter);
 app.use("/actors", actorRouter);
 app.use("/directors", directorRouter);
 app.use("/quotes", quoteRouter);
+app.use("/genres", genreRouter);
 
 app.listen(3001, () => {
   console.log(`Server running on port 3001`);

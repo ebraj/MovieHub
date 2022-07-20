@@ -45,6 +45,7 @@ const customStyles = {
 
 function AddMoviePopup() {
   const [allCompanies, setAllCompanies] = useState([]);
+  const [allGenres, setAllGenres] = useState([]);
   const { setShowPopup } = useContext(PopupContext);
   const router = useRouter();
 
@@ -54,20 +55,24 @@ function AddMoviePopup() {
       label: singleCompany.company_name,
     };
   });
-
-  const genresOptions = [
-    { value: "Genre1", label: "Genre1" },
-    { value: "Genre2", label: "Genre2" },
-    { value: "Genre3", label: "Genre3" },
-    { value: "Genre4", label: "Genre4" },
-  ];
+  const genresOptions = allGenres.map((singleGenre) => {
+    return {
+      value: singleGenre.genre,
+      label: singleGenre.genre,
+    };
+  });
 
   useEffect(() => {
     const fetchCompanies = async () => {
       const response = await axios.get("http://localhost:3001/companies");
       setAllCompanies(response.data);
     };
+    const fetchGenres = async () => {
+      const response = await axios.get("http://localhost:3001/genres");
+      setAllGenres(response.data);
+    };
     fetchCompanies();
+    fetchGenres();
   }, []);
   return (
     <>
@@ -86,6 +91,7 @@ function AddMoviePopup() {
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
+              console.log(values);
               try {
                 const response = await axios.post(
                   "http://localhost:3001",
@@ -169,10 +175,15 @@ function AddMoviePopup() {
                     <div className="space-y-2 flex flex-col">
                       <label htmlFor="">Genres</label>
                       <Select
+                        isMulti
                         options={genresOptions}
                         styles={customStyles}
                         onChange={(selectedOption) => {
-                          setFieldValue("genre", selectedOption.value);
+                          const datas = selectedOption.map((singleVal) => {
+                            return singleVal.value;
+                          });
+
+                          setFieldValue("genre", datas.toString());
                         }}
                       />
                     </div>

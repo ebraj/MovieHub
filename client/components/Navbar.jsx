@@ -14,6 +14,8 @@ function Navbar() {
   const { showActorPopup, setShowActorPopup } = useContext(ActorPopupContext);
   const { showDirectorPopup, setShowDirectorPopup } =
     useContext(DirectorPopupContext);
+  const { showCompanyPopup, setShowCompanyPopup } =
+    useContext(CompanyPopupContext);
   const { route } = useRouter();
   return (
     <div className="max-w-[1200px] mx-auto space-y-5 sm:space-y-0">
@@ -66,7 +68,7 @@ function Navbar() {
         {route === "/directors" && (
           <button
             onClick={() => {
-              setShowPopup(true);
+              setShowDirectorPopup(true);
             }}
             className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold"
           >
@@ -76,7 +78,7 @@ function Navbar() {
         {route === "/companies" && (
           <button
             onClick={() => {
-              setShowPopup(true);
+              setShowCompanyPopup(true);
             }}
             className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold"
           >
