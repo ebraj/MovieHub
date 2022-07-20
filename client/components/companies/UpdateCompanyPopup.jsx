@@ -6,15 +6,14 @@ import * as Yup from "yup";
 import Select from "react-select";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import DirectorPopupContext from "../contexts/DirectorPopupContext";
+import CompanyPopupContext from "../contexts/CompanyPopupContext";
 
 /**
  * Validation Schema added.
  */
 const requiredSchema = Yup.object({
-  director_name: Yup.string().required(),
-  director_DOB: Yup.string(),
-  movie_name: Yup.string(),
+  company_name: Yup.string().required(),
+  company_address: Yup.string(),
 });
 
 /**
@@ -40,26 +39,11 @@ const customStyles = {
   }),
 };
 
-function AddDirectorPopup() {
-  const [allMovies, setAllMovies] = useState([]);
-  const { showDirectorPopup, setShowDirectorPopup } =
-    useContext(DirectorPopupContext);
+function UpdateCompanyPopup({ singleCompany, handleShowUpdatePopup }) {
+  const { showCompanyPopup, setShowCompanyPopup } =
+    useContext(CompanyPopupContext);
   const router = useRouter();
 
-  const moviesOptions = allMovies.map((singleMovie) => {
-    return {
-      value: singleMovie.movie_name,
-      label: singleMovie.movie_name,
-    };
-  });
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const response = await axios.get("http://localhost:3001/movies");
-      setAllMovies(response.data);
-    };
-    fetchMovies();
-  }, []);
   return (
     <>
       <ToastContainer autoClose={3000} />
@@ -68,9 +52,8 @@ function AddDirectorPopup() {
           {/* All about the form to add the movie */}
           <Formik
             initialValues={{
-              director_name: "",
-              director_DOB: "",
-              movie_name: "",
+              company_name: singleCompany.company_name,
+              company_address: singleCompany.company_address,
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
@@ -96,65 +79,34 @@ function AddDirectorPopup() {
               return (
                 <Form className="space-y-3">
                   <div className="space-y-2">
-                    <label htmlFor="">Director Name</label>
+                    <label htmlFor="">Company Name</label>
                     <Field
                       type="text"
-                      name="director_name"
+                      name="company_name"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
                     ></Field>
                     <ErrorMessage
-                      name="director_name"
+                      name="company_name"
                       component="p"
                       className="text-red-400"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="">Director DOB</label>
+                    <label htmlFor="">Company Address</label>
                     <Field
                       type="text"
-                      name="director_DOB"
+                      name="company_address"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
                     ></Field>
                     <ErrorMessage
-                      name="director_DOB"
+                      name="company_address"
                       component="p"
                       className="text-red-400"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <div className="space-y-2 flex flex-col">
-                      <label htmlFor="">Movies Directed</label>
-                      <Select
-                        options={moviesOptions}
-                        styles={customStyles}
-                        onChange={(selectedOption) => {
-                          setFieldValue("movie_name", selectedOption.value);
-                        }}
-                      />
-                    </div>
-                    <ErrorMessage
-                      name="movie_name"
-                      component="p"
-                      className="text-red-400"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="">Role</label>
-                    <Field
-                      type="text"
-                      name="role"
-                      autoComplete="off"
-                      className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
-                    ></Field>
-                    <ErrorMessage
-                      name="role"
-                      component="p"
-                      className="text-red-400"
-                    />
-                  </div>
                   <div className="text-gray-900 font-bold grid sm:grid-cols-2 gap-2">
                     <button
                       className="px-5 py-4 rounded-md bg-green-400 w-full"
@@ -165,7 +117,7 @@ function AddDirectorPopup() {
                     <button
                       className="px-5 py-4 rounded-md bg-orange-400 w-full"
                       onClick={() => {
-                        setShowDirectorPopup(false);
+                        handleShowUpdatePopup(false);
                       }}
                     >
                       Cancel
@@ -181,4 +133,4 @@ function AddDirectorPopup() {
   );
 }
 
-export default AddDirectorPopup;
+export default UpdateCompanyPopup;

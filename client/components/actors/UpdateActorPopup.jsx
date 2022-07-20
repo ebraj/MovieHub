@@ -6,14 +6,15 @@ import * as Yup from "yup";
 import Select from "react-select";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import DirectorPopupContext from "../contexts/DirectorPopupContext";
+import ActorPopupContext from "../contexts/ActorPopupContext";
 
 /**
  * Validation Schema added.
  */
 const requiredSchema = Yup.object({
-  director_name: Yup.string().required(),
-  director_DOB: Yup.string(),
+  actor_name: Yup.string().required(),
+  actor_DOB: Yup.string(),
+  role: Yup.string().required(),
   movie_name: Yup.string(),
 });
 
@@ -40,10 +41,10 @@ const customStyles = {
   }),
 };
 
-function AddDirectorPopup() {
+function UpdateActorPopup({ singleActor, handleShowUpdatePopup }) {
+  console.log(singleActor);
   const [allMovies, setAllMovies] = useState([]);
-  const { showDirectorPopup, setShowDirectorPopup } =
-    useContext(DirectorPopupContext);
+  const { showActorPopup, setShowActorPopup } = useContext(ActorPopupContext);
   const router = useRouter();
 
   const moviesOptions = allMovies.map((singleMovie) => {
@@ -68,9 +69,10 @@ function AddDirectorPopup() {
           {/* All about the form to add the movie */}
           <Formik
             initialValues={{
-              director_name: "",
-              director_DOB: "",
-              movie_name: "",
+              actor_name: singleActor.actor_name,
+              actor_DOB: singleActor.actor_DOB,
+              role: "",
+              movie_name: singleActor.movie_name,
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
@@ -96,29 +98,29 @@ function AddDirectorPopup() {
               return (
                 <Form className="space-y-3">
                   <div className="space-y-2">
-                    <label htmlFor="">Director Name</label>
+                    <label htmlFor="">Actor Name</label>
                     <Field
                       type="text"
-                      name="director_name"
+                      name="actor_name"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
                     ></Field>
                     <ErrorMessage
-                      name="director_name"
+                      name="actor_name"
                       component="p"
                       className="text-red-400"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label htmlFor="">Director DOB</label>
+                    <label htmlFor="">Actor DOB</label>
                     <Field
                       type="text"
-                      name="director_DOB"
+                      name="actor_DOB"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
                     ></Field>
                     <ErrorMessage
-                      name="director_DOB"
+                      name="actor_DOB"
                       component="p"
                       className="text-red-400"
                     />
@@ -126,7 +128,7 @@ function AddDirectorPopup() {
 
                   <div className="space-y-2">
                     <div className="space-y-2 flex flex-col">
-                      <label htmlFor="">Movies Directed</label>
+                      <label htmlFor="">Movies</label>
                       <Select
                         options={moviesOptions}
                         styles={customStyles}
@@ -165,7 +167,7 @@ function AddDirectorPopup() {
                     <button
                       className="px-5 py-4 rounded-md bg-orange-400 w-full"
                       onClick={() => {
-                        setShowDirectorPopup(false);
+                        handleShowUpdatePopup();
                       }}
                     >
                       Cancel
@@ -181,4 +183,4 @@ function AddDirectorPopup() {
   );
 }
 
-export default AddDirectorPopup;
+export default UpdateActorPopup;
