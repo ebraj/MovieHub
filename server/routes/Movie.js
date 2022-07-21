@@ -1,6 +1,11 @@
 const express = require("express");
-const { connection, displayTable, addTo, deleteFrom } = require("../models");
-const { editTable } = require("../models/sql_queries");
+const {
+  connection,
+  displayTable,
+  addTo,
+  deleteFrom,
+  editTable,
+} = require("../models");
 
 const movieRouter = express.Router();
 
