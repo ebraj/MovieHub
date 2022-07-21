@@ -76,21 +76,20 @@ function AddMoviePopup() {
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
               console.log(values);
-              // try {
-              //   const response = await axios.post(
-              //     "http://localhost:3001",
-              //     values
-              //   );
-              //   console.log(response.data);
-              //   console.log(values);
-              //   toast.success("Movie added successfully!", {
-              //     onClose: setTimeout(() => {
-              //       router.reload("/");
-              //     }, 3500),
-              //   });
-              // } catch {
-              //   toast.error("Failed to add movie.");
-              // }
+              try {
+                const response = await axios.post(
+                  "http://localhost:3001/actors",
+                  values
+                );
+                console.log(values);
+                toast.success("Actor added successfully!", {
+                  onClose: setTimeout(() => {
+                    router.reload("/actors");
+                  }, 3500),
+                });
+              } catch {
+                toast.error("Failed to add actor.");
+              }
             }}
           >
             {({ values, isSubmitting, setFieldValue }) => {

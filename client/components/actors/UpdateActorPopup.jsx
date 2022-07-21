@@ -7,6 +7,7 @@ import Select from "react-select";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import ActorPopupContext from "../contexts/ActorPopupContext";
+import slugify from "slugify";
 
 /**
  * Validation Schema added.
@@ -42,7 +43,7 @@ const customStyles = {
 };
 
 function UpdateActorPopup({ singleActor, handleShowUpdatePopup }) {
-  console.log(singleActor);
+  const actorSlug = slugify(singleActor.actor_name, {});
   const [allMovies, setAllMovies] = useState([]);
   const { showActorPopup, setShowActorPopup } = useContext(ActorPopupContext);
   const router = useRouter();
@@ -71,27 +72,26 @@ function UpdateActorPopup({ singleActor, handleShowUpdatePopup }) {
             initialValues={{
               actor_name: singleActor.actor_name,
               actor_DOB: singleActor.actor_DOB,
-              role: "",
+              role: singleActor.role,
               movie_name: singleActor.movie_name,
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
               console.log(values);
-              // try {
-              //   const response = await axios.post(
-              //     "http://localhost:3001",
-              //     values
-              //   );
-              //   console.log(response.data);
-              //   console.log(values);
-              //   toast.success("Movie added successfully!", {
-              //     onClose: setTimeout(() => {
-              //       router.reload("/");
-              //     }, 3500),
-              //   });
-              // } catch {
-              //   toast.error("Failed to add movie.");
-              // }
+              try {
+                const response = await axios.put(
+                  `http://localhost:3001/actors/${actorSlug}`,
+                  values
+                );
+
+                toast.success("Actor updated successfully!", {
+                  onClose: setTimeout(() => {
+                    router.reload("/actors");
+                  }, 3500),
+                });
+              } catch {
+                toast.error("Failed to update movie.");
+              }
             }}
           >
             {({ values, isSubmitting, setFieldValue }) => {

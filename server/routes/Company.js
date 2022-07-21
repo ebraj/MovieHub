@@ -13,7 +13,7 @@ companyRouter.get("/", (req, res) => {
 
 companyRouter.post("/", (req, res) => {
   let company = req.body;
-  let newCompany = [company.name, company.address];
+  let newCompany = [company.company_name, company.address];
   addTo.addCompany(newCompany);
   res.send("Company added");
 });

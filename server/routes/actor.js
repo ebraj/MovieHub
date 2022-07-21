@@ -41,8 +41,10 @@ actorRouter.delete("/:id", (req, res) => {
 
 actorRouter.put("/:id", (req, res) => {
   let actr = req.params.id;
+  console.log(actr);
   let actor_name = actr.replace(/-/g, " ");
 
+  console.log(actor_name);
   let actorDetail = req.body;
   let updatedActorDOB = actorDetail.actor_DOB;
   // let updatedActs = [actorDetail.movie_name,actorDetail.role];

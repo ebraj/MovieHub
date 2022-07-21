@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit3 } from "react-icons/fi";
 import { toast, ToastContainer } from "react-toastify";
-import UpdateMoviePopup from "../../../components/UpdateMoviePopup";
+import UpdateMoviePopup from "../../../components/main/UpdateMoviePopup";
 
 function Slug({ movieDatas }) {
   const router = useRouter();
@@ -43,6 +43,8 @@ function Slug({ movieDatas }) {
       }
     });
   }, [slug]);
+
+  console.log(singleMovie);
 
   return (
     <>
@@ -117,7 +119,7 @@ function Slug({ movieDatas }) {
           <div className="space-y-8">
             <h2 className="text-3xl md:text-4xl font-black">Related Movies</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 grid-container">
-              {movieDatas.map((singleData) => {
+              {movieDatas.slice(0, 5).map((singleData) => {
                 return (
                   <Card singleData={singleData} key={singleData.movie_name} />
                 );

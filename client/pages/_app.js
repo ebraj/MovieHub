@@ -8,7 +8,7 @@ import ActorPopupContext from "../components/contexts/ActorPopupContext";
 import CompanyPopupContext from "../components/contexts/CompanyPopupContext";
 import DirectorPopupContext from "../components/contexts/DirectorPopupContext";
 
-import AddMoviePopup from "../components/AddMoviePopup";
+import AddMoviePopup from "../components/main/AddMoviePopup";
 import AddActorPopup from "../components/actors/AddActorPopup";
 import AddCompanyPopup from "../components/companies/AddCompanyPopup";
 import AddDirectorPopup from "../components/directors/AddDirectorPopup";
