@@ -94,6 +94,7 @@ const editTable = {
   editActor: "update actor set actor_DOB = ? where actor_name = ?",
   editCompany: "update production_company set address = ? where name = ?",
   editActs: "update acts set movie_name = ?, role = ? where actor_name = ?",
+  editQuotes: "update actorquotes set quote = ? where role = ?",
 };
 
 module.exports = {
