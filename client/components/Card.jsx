@@ -20,7 +20,7 @@ function Card({ singleData }) {
     <>
       <div className="space-y-2 pb-5">
         <div className="h-[300px] rounded-md"></div>
-        <Link href={`http://localhost:3000/movie/${slug}`}>
+        <Link href={`http://localhost:3000/movies/${slug}`}>
           <h2 className="cursor-pointer">{singleData.movie_name}</h2>
         </Link>
         <div className="flex items-center space-x-4 text-gray-400">
