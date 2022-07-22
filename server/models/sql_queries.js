@@ -44,7 +44,7 @@ const insertIntoTable = {
   addgenre: "insert into moviegenre values(?,?)",
   insertIntoMovies: "insert into movie values(?,?,?,?,?)",
   addActor: "insert into actor values(?,?)",
-  addacting: "insert into acts values(?,?)",
+  addacting: "insert into acts values(?,?,?)",
   addDirector: "insert into director values(?,?)",
   adddirecting: "insert into directs values(?,?)",
   addActorQuotes: "insert into actorquotes values(?,?)",
@@ -93,6 +93,7 @@ const editTable = {
   editDirector: "update director set director_DOB = ? where director_name = ?",
   editActor: "update actor set actor_DOB = ? where actor_name = ?",
   editCompany: "update production_company set address = ? where name = ?",
+  editActs: "update acts set movie_name = ?, role = ? where actor_name = ?",
 };
 
 module.exports = {

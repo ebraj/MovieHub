@@ -13,7 +13,7 @@ import CompanyPopupContext from "../contexts/CompanyPopupContext";
  */
 const requiredSchema = Yup.object({
   company_name: Yup.string().required(),
-  company_address: Yup.string(),
+  address: Yup.string(),
 });
 
 /**
@@ -53,26 +53,25 @@ function AddCompanyPopup() {
           <Formik
             initialValues={{
               company_name: "",
-              company_address: "",
+              address: "",
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
               console.log(values);
-              // try {
-              //   const response = await axios.post(
-              //     "http://localhost:3001",
-              //     values
-              //   );
-              //   console.log(response.data);
-              //   console.log(values);
-              //   toast.success("Movie added successfully!", {
-              //     onClose: setTimeout(() => {
-              //       router.reload("/");
-              //     }, 3500),
-              //   });
-              // } catch {
-              //   toast.error("Failed to add movie.");
-              // }
+              try {
+                const response = await axios.post(
+                  "http://localhost:3001/companies",
+                  values
+                );
+                console.log(response);
+                toast.success("Company added successfully!", {
+                  onClose: setTimeout(() => {
+                    router.reload("/companies");
+                  }, 3500),
+                });
+              } catch {
+                toast.error("Failed to add company.");
+              }
             }}
           >
             {({ values, isSubmitting, setFieldValue }) => {
@@ -96,12 +95,12 @@ function AddCompanyPopup() {
                     <label htmlFor="">Company Address</label>
                     <Field
                       type="text"
-                      name="company_address"
+                      name="address"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
                     ></Field>
                     <ErrorMessage
-                      name="company_address"
+                      name="address"
                       component="p"
                       className="text-red-400"
                     />

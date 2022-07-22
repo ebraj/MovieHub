@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Card from "../components/Card";
-import AddMoviePopup from "../components/AddMoviePopup";
+import AddMoviePopup from "../components/main/AddMoviePopup";
 import PopupContext from "../components/contexts/PopupContext";
 import { useContext } from "react";
 export default function Home({ movies }) {
