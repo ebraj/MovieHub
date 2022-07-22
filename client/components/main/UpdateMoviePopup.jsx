@@ -44,6 +44,7 @@ const customStyles = {
 
 function UpdateMoviePopup({ handleEditMovieCancel, singleMovie }) {
   const [allCompanies, setAllCompanies] = useState([]);
+  const [allGenres, setAllGenres] = useState([]);
   const router = useRouter();
   const {
     query: { slug },
@@ -56,19 +57,24 @@ function UpdateMoviePopup({ handleEditMovieCancel, singleMovie }) {
     };
   });
 
-  const genresOptions = [
-    { value: "Genre1", label: "Genre1" },
-    { value: "Genre2", label: "Genre2" },
-    { value: "Genre3", label: "Genre3" },
-    { value: "Genre4", label: "Genre4" },
-  ];
+  const genresOptions = allGenres.map((singleGenre) => {
+    return {
+      value: singleGenre.genre,
+      label: singleGenre.genre,
+    };
+  });
 
   useEffect(() => {
     const fetchCompanies = async () => {
       const response = await axios.get("http://localhost:3001/companies");
       setAllCompanies(response.data);
     };
+    const fetchGenres = async () => {
+      const response = await axios.get("http://localhost:3001/genres");
+      setAllGenres(response.data);
+    };
     fetchCompanies();
+    fetchGenres();
   }, []);
   return (
     <>

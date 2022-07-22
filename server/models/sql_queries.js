@@ -76,7 +76,7 @@ const showTable = {
 const deleteFrom = {
   deleteMovie: "delete from movie where movie_name = ?",
   deleteGenre: "delete from moviegenre where movie_name = ?",
-  deleteCompany: "delete from production_company where name = ?",
+  deleteCompany: "delete from production_company where company_name = ?",
   deleteActor: "delete from actor where actor_name = ?",
   deleteDirector: "delete from director where director_name = ? ",
   deleteActorScript: "delete from actorquotes where role_played = ?",
@@ -92,7 +92,8 @@ const editTable = {
   editGenre: " update moviegenre set genre = ? where movie_name = ?",
   editDirector: "update director set director_DOB = ? where director_name = ?",
   editActor: "update actor set actor_DOB = ? where actor_name = ?",
-  editCompany: "update production_company set address = ? where name = ?",
+  editCompany:
+    "update production_company set address = ? where company_name = ?",
   editActs: "update acts set movie_name = ?, role = ? where actor_name = ?",
   editQuotes: "update actorquotes set quote = ? where role = ?",
 };

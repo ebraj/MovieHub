@@ -33,18 +33,10 @@ function Slug({ movieDatas }) {
     } catch {}
   };
   useEffect(() => {
-    movieDatas.forEach((singleMovie) => {
-      const singleSlug = slugify(singleMovie.movie_name, {
-        // remove: ":",
-        // lower: true,
-      });
-      if (singleSlug === slug) {
-        setSingleMovie(singleMovie);
-      }
+    axios.get(`http://localhost:3001/movies/${slug}`).then((response) => {
+      setSingleMovie(response.data[0]);
     });
   }, [slug]);
-
-  console.log(singleMovie);
 
   return (
     <>
@@ -90,19 +82,21 @@ function Slug({ movieDatas }) {
                     </span>
                   </p>
                   <p>
-                    <span>Actors:</span>
+                    <span>Actors: </span>
                     <span className="text-gray-400">{singleMovie.actors}</span>
                   </p>
                 </div>
                 <div className="space-y-2">
                   <p>
-                    <span>Genre:</span>
-                    <span className="text-gray-400"> {singleMovie.genre}</span>
+                    <span>Genres: </span>
+                    <span className="text-gray-400"> {singleMovie.genres}</span>
                   </p>
-                  {/* <p>
-                    <span>Production:</span>
-                    <span className="text-gray-400"> 20th Century Studios</span>
-                  </p> */}
+                  <p>
+                    <span>Production: </span>
+                    <span className="text-gray-400">
+                      {singleMovie.company_name}
+                    </span>
+                  </p>
                 </div>
               </div>
 
@@ -135,8 +129,10 @@ function Slug({ movieDatas }) {
 export default Slug;
 
 export const getServerSideProps = async (context) => {
+  const {
+    query: { slug },
+  } = context;
   const { data } = await axios.get("http://localhost:3001/");
-  console.log(data);
 
   return {
     props: {
