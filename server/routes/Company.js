@@ -5,7 +5,7 @@ const { editTable } = require("../models/sql_queries");
 const companyRouter = express.Router();
 
 companyRouter.get("/", (req, res) => {
-  connection.query(displayTable.showCompanyDetail, (err, results) => {
+  connection.query(displayTable.showCompany, (err, results) => {
     if (err) console.log(`Error: ${err.message}`);
     res.send(results);
   });

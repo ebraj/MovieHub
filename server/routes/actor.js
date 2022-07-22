@@ -62,6 +62,7 @@ actorRouter.put("/:id", (req, res) => {
       if (err) console.log(`Error: ${err.message}`);
     }
   );
+  res.send("New Actor added");
 });
 
 module.exports = actorRouter;

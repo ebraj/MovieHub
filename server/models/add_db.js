@@ -8,7 +8,6 @@ function addCompany(data) {
     data,
     (err) => {
       if (err) console.log(`Error: ${err.message}`);
-      else console.log("New Company added");
     }
   );
 }
