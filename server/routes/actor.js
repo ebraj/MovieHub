@@ -22,8 +22,8 @@ actorRouter.get("/", (req, res) => {
 actorRouter.post("/", (req, res) => {
   let actor = req.body;
   let newActor = [actor.actor_name, actor.actor_DOB];
-  let updateActor = [actor.movie_name, actor.actor_name, actor.role];
-  addTo.addActors(newActor, updateActor);
+  let updatingAct = [actor.movie_name, actor.actor_name, actor.role];
+  addTo.addActors(newActor, updatingAct);
   res.send("New Actor Added");
 });
 
