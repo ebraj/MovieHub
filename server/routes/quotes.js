@@ -18,7 +18,8 @@ quoteRouter.get("/", (req, res) => {
 
 quoteRouter.post("/", (req, res) => {
   let quo = req.body;
-  let newQuote = [quo.role, quo.quote];
+  console.log(quo);
+  let newQuote = [quo.role_played, quo.quote];
   addTo.addQuotes(newQuote);
   res.send("Quote added");
 });
