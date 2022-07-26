@@ -25,15 +25,15 @@ const createTables = {
    * Cardinal m-n relations to tables
    */
   actedByTable:
-    "create table if not exists acts(movie_name varchar(100),actor_name varchar(50), role varchar(50) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(actor_name) references actor(actor_name) on delete cascade on update cascade)",
+    "create table if not exists acts(movie_name varchar(100),actor_name varchar(50), role_played varchar(50) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(actor_name) references actor(actor_name) on delete cascade on update cascade)",
   directedByTable:
     "create table if not exists directs(movie_name varchar(100),director_name varchar(50), foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(director_name) references director(director_name) on delete cascade on update cascade)",
   director_act:
-    "create table if not exists DirActs(Movie_name varchar(100),Director_name varchar(50),role varchar(25) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(Director_name) references director(director_name) on delete cascade on update cascade)",
+    "create table if not exists DirActs(Movie_name varchar(100),Director_name varchar(50),role_played varchar(25) primary key, foreign key(movie_name) references movie(movie_name) on delete cascade on update cascade,foreign key(Director_name) references director(director_name) on delete cascade on update cascade)",
   actorQuoteTable:
-    "create table if not exists actorquotes (role_played varchar(50),quote varchar(150),foreign key(role_played) references acts(role) on delete cascade on update cascade)",
+    "create table if not exists actorquotes (role_played varchar(50),quote varchar(150),foreign key(role_played) references acts(role_played) on delete cascade on update cascade)",
   directorQuoteTable:
-    "create table if not exists directorquotes (role_played varchar(25),quote varchar(150),foreign key(role_played) references dirActs(role) on delete cascade on update cascade)",
+    "create table if not exists directorquotes (role_played varchar(25),quote varchar(150),foreign key(role_played) references dirActs(role_played) on delete cascade on update cascade)",
 };
 
 /**
@@ -66,7 +66,7 @@ const showTable = {
   showDirector: "select * from director natural join directs",
   showCompany: "select * from production_company",
   showActors:
-    "Select actor_name,actor_DOB,movie_name from actor natural join acts union select director_name as actor_name ,movie_name,role from diracts",
+    "Select actor_name,actor_DOB,movie_name from actor natural join acts union select director_name as actor_name ,movie_name,role_played from diracts",
   showScript:
     "select * from actorquotes union select * from directorquotes order by role_played",
   showCompanyDetail:
@@ -94,8 +94,9 @@ const editTable = {
   editActor: "update actor set actor_DOB = ? where actor_name = ?",
   editCompany:
     "update production_company set address = ? where company_name = ?",
-  editActs: "update acts set movie_name = ?, role = ? where actor_name = ?",
-  editQuotes: "update actorquotes set quote = ? where role = ?",
+  editActs:
+    "update acts set movie_name = ?, role_played = ? where actor_name = ?",
+  editQuotes: "update actorquotes set quote = ? where role_played = ?",
 };
 
 module.exports = {

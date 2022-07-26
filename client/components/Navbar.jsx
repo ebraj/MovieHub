@@ -6,6 +6,7 @@ import PopupContext from "./contexts/PopupContext";
 import ActorPopupContext from "./contexts/ActorPopupContext";
 import CompanyPopupContext from "./contexts/CompanyPopupContext";
 import DirectorPopupContext from "./contexts/DirectorPopupContext";
+import QuotesPopupContext from "./contexts/QuotesPopupContext";
 
 import Image from "next/image";
 
@@ -16,6 +17,8 @@ function Navbar() {
     useContext(DirectorPopupContext);
   const { showCompanyPopup, setShowCompanyPopup } =
     useContext(CompanyPopupContext);
+  const { showQuotesPopup, setShowQuotesPopup } =
+    useContext(QuotesPopupContext);
   const { route } = useRouter();
   return (
     <div className="max-w-[1200px] mx-auto space-y-5 sm:space-y-0">
@@ -34,7 +37,7 @@ function Navbar() {
           </div>
         </div>
 
-        <ul className="flex items-center space-x-5">
+        <ul className="flex items-center justify-center flex-wrap space-x-5">
           <li>
             <Link href="/actors">Actors</Link>
           </li>
@@ -43,6 +46,9 @@ function Navbar() {
           </li>
           <li>
             <Link href="/companies">Companies</Link>
+          </li>
+          <li>
+            <Link href="/quotes">Quotes</Link>
           </li>
         </ul>
         {route === "/" && (
@@ -83,6 +89,16 @@ function Navbar() {
             className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold"
           >
             Add Company
+          </button>
+        )}
+        {route === "/quotes" && (
+          <button
+            onClick={() => {
+              setShowQuotesPopup(true);
+            }}
+            className="bg-custom-yellow px-4 py-2 rounded-sm text-custom-dark font-bold"
+          >
+            Add Quotes
           </button>
         )}
       </div>
