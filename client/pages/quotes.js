@@ -1,11 +1,10 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import slugify from "slugify";
 import { ToastContainer } from "react-toastify";
 import QuotesCard from "../components/quotes/QuotesCard";
 
 function Quotes({ quotesDatas }) {
-  console.log(quotesDatas);
   return (
     <div className="max-w-[1200px] mx-auto space-y-5">
       <ToastContainer autoClose={3000} />

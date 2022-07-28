@@ -5,10 +5,10 @@ import axios from "axios";
 import slugify from "slugify";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import UpdateQuotesPopup from "./UpdateQuotesPopup";
 
 function QuotesCard({ singleQuote }) {
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
-  console.log(singleQuote);
 
   const handleShowUpdatePopup = () => {
     setShowUpdatePopup(false);
@@ -18,10 +18,10 @@ function QuotesCard({ singleQuote }) {
   const quoteSlug = slugify(singleQuote.role_played, {});
   const handleDeleteCompany = () => {
     try {
-      axios.delete(`http://localhost:3001/actors/${quoteSlug}`);
-      toast.success("Actor deleted successfully.", {
+      axios.delete(`http://localhost:3001/quotes/${quoteSlug}`);
+      toast.success("Quote deleted successfully.", {
         onClose: setTimeout(() => {
-          router.push("/actors");
+          router.push("/quotes");
         }, 3500),
       });
     } catch {}
@@ -30,7 +30,7 @@ function QuotesCard({ singleQuote }) {
     <>
       {showUpdatePopup && (
         <div className="fixed w-[100%] top-0 right-0 left-0 bottom-0 overflow-y-auto bg-gray-700 min-h-screen grid place-content-center custom-bg">
-          <UpdateActorPopup
+          <UpdateQuotesPopup
             handleShowUpdatePopup={handleShowUpdatePopup}
             singleQuote={singleQuote}
           />

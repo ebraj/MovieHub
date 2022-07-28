@@ -7,6 +7,7 @@ import Select from "react-select";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import QuotesPopupContext from "../contexts/QuotesPopupContext";
+import slugify from "slugify";
 
 /**
  * Validation Schema added.
@@ -39,7 +40,9 @@ const customStyles = {
   }),
 };
 
-function AddQuotesPopup() {
+function UpdateQuotesPopup({ singleQuote, handleShowUpdatePopup }) {
+  const quoteSlug = slugify(singleQuote.role_played);
+  console.log(quoteSlug);
   const { showQuotesPopup, setShowQuotesPopup } =
     useContext(QuotesPopupContext);
   const router = useRouter();
@@ -66,18 +69,18 @@ function AddQuotesPopup() {
           {/* All about the form to add the movie */}
           <Formik
             initialValues={{
-              role_played: "",
-              quote: "",
+              role_played: singleQuote.role_played,
+              quote: singleQuote.quote,
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
               console.log(values);
               try {
-                const response = await axios.post(
-                  "http://localhost:3001/quotes",
+                const response = await axios.put(
+                  `http://localhost:3001/quotes/${quoteSlug}`,
                   values
                 );
-                toast.success("Quotes added successfully!", {
+                toast.success("Quotes updated successfully!", {
                   onClose: setTimeout(() => {
                     router.reload("/quotes");
                   }, 3500),
@@ -99,6 +102,7 @@ function AddQuotesPopup() {
                           setFieldValue("role_played", selectedOption.value);
                         }}
                         styles={customStyles}
+                        isDisabled
                       />
                     </div>
                     <ErrorMessage
@@ -131,7 +135,7 @@ function AddQuotesPopup() {
                     <button
                       className="px-5 py-4 rounded-md bg-orange-400 w-full"
                       onClick={() => {
-                        setShowQuotesPopup(false);
+                        handleShowUpdatePopup();
                       }}
                     >
                       Cancel
@@ -147,4 +151,4 @@ function AddQuotesPopup() {
   );
 }
 
-export default AddQuotesPopup;
+export default UpdateQuotesPopup;
