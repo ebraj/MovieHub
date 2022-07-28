@@ -15,8 +15,8 @@ import slugify from "slugify";
 const requiredSchema = Yup.object({
   actor_name: Yup.string().required(),
   actor_DOB: Yup.string(),
-  role: Yup.string().required(),
-  movie_name: Yup.string(),
+  // role: Yup.string().required(),
+  // movie_name: Yup.string().required(),
 });
 
 /**
@@ -45,7 +45,6 @@ const customStyles = {
 function UpdateActorPopup({ singleActor, handleShowUpdatePopup }) {
   const actorSlug = slugify(singleActor.actor_name, {});
   const [allMovies, setAllMovies] = useState([]);
-  const { showActorPopup, setShowActorPopup } = useContext(ActorPopupContext);
   const router = useRouter();
 
   const moviesOptions = allMovies.map((singleMovie) => {
@@ -72,12 +71,11 @@ function UpdateActorPopup({ singleActor, handleShowUpdatePopup }) {
             initialValues={{
               actor_name: singleActor.actor_name,
               actor_DOB: singleActor.actor_DOB,
-              role: singleActor.role,
-              movie_name: singleActor.movie_name,
+              // role: singleActor.role,
+              // movie_name: singleActor.movie_name,
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
-              console.log(values);
               try {
                 const response = await axios.put(
                   `http://localhost:3001/actors/${actorSlug}`,
@@ -104,6 +102,7 @@ function UpdateActorPopup({ singleActor, handleShowUpdatePopup }) {
                       name="actor_name"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
+                      disabled
                     ></Field>
                     <ErrorMessage
                       name="actor_name"
@@ -126,7 +125,7 @@ function UpdateActorPopup({ singleActor, handleShowUpdatePopup }) {
                     />
                   </div>
 
-                  <div className="space-y-2">
+                  {/* <div className="space-y-2">
                     <div className="space-y-2 flex flex-col">
                       <label htmlFor="">Movies</label>
                       <Select
@@ -156,7 +155,7 @@ function UpdateActorPopup({ singleActor, handleShowUpdatePopup }) {
                       component="p"
                       className="text-red-400"
                     />
-                  </div>
+                  </div> */}
                   <div className="text-gray-900 font-bold grid sm:grid-cols-2 gap-2">
                     <button
                       className="px-5 py-4 rounded-md bg-green-400 w-full"

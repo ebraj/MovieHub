@@ -71,7 +71,6 @@ function AddQuotesPopup() {
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
-              console.log(values);
               try {
                 const response = await axios.post(
                   "http://localhost:3001/quotes",

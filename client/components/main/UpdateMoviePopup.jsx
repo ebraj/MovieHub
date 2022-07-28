@@ -86,7 +86,6 @@ function UpdateMoviePopup({ handleEditMovieCancel, singleMovie }) {
             initialValues={singleMovie}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
-              console.log(values);
               try {
                 const response = await axios.put(
                   `http://localhost:3001/movies/${slug}`,

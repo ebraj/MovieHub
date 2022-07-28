@@ -13,8 +13,8 @@ import DirectorPopupContext from "../contexts/DirectorPopupContext";
  */
 const requiredSchema = Yup.object({
   director_name: Yup.string().required(),
-  director_DOB: Yup.string(),
-  movie_name: Yup.string(),
+  director_DOB: Yup.string().required(),
+  movie_name: Yup.string().required(),
 });
 
 /**

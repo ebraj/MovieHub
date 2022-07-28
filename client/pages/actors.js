@@ -3,7 +3,6 @@ import React from "react";
 import slugify from "slugify";
 import { ToastContainer } from "react-toastify";
 import ActorCard from "../components/actors/ActorsCard";
-import UpdateActorPopup from "../components/actors/UpdateActorPopup";
 
 function Actors({ actorDatas }) {
   return (

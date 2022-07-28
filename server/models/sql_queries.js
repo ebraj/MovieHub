@@ -7,9 +7,9 @@ const createDB = {
 
 const createTables = {
   companyTable:
-    "create table if not exists production_company(name varchar(50) primary key, address varchar(65))",
+    "create table if not exists production_company(company_name varchar(50) primary key, address varchar(65))",
   movieTable:
-    "create table if not exists movie (movie_name varchar(100) not null primary key,length varchar(20), year_of_release int(4), plot_outline varchar(800),company_name varchar(50), foreign key(company_name) references production_company(name) on delete cascade on update cascade)",
+    "create table if not exists movie (movie_name varchar(100) not null primary key,length varchar(20), year_of_release int(4), plot_outline varchar(800),company_name varchar(50), foreign key(company_name) references production_company(company_name) on delete cascade on update cascade)",
   directorTable:
     "create table if not exists director (director_name varchar(50) primary key, director_DOB varchar(30))",
   actorTable:
@@ -70,7 +70,7 @@ const showTable = {
   showScript:
     "select * from actorquotes union select * from directorquotes order by role_played",
   showCompanyDetail:
-    "select m.company_name, group_concat(m.movie_name) as movies, p.address from movie m inner join production_company p on m.company_name = p.name group by m.company_name",
+    "select m.company_name, group_concat(m.movie_name) as movies, p.address from movie m inner join production_company p on m.company_name = p.company_name group by m.company_name",
 };
 
 const deleteFrom = {

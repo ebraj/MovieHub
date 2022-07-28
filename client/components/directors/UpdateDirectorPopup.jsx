@@ -15,7 +15,7 @@ import slugify from "slugify";
 const requiredSchema = Yup.object({
   director_name: Yup.string().required(),
   director_DOB: Yup.string(),
-  movie_name: Yup.string(),
+  // movie_name: Yup.string(),
 });
 
 /**
@@ -72,7 +72,7 @@ function UpdateDirectorPopup({ singleDirector, handleShowUpdatePopup }) {
             initialValues={{
               director_name: singleDirector.director_name,
               director_DOB: singleDirector.director_DOB,
-              movie_name: singleDirector.movie_name,
+              // movie_name: singleDirector.movie_name,
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
@@ -81,8 +81,6 @@ function UpdateDirectorPopup({ singleDirector, handleShowUpdatePopup }) {
                   `http://localhost:3001/directors/${directorSlug}`,
                   values
                 );
-                console.log(response.data);
-                console.log(values);
                 toast.success("Director updated successfully!", {
                   onClose: setTimeout(() => {
                     router.reload("/");
@@ -103,6 +101,7 @@ function UpdateDirectorPopup({ singleDirector, handleShowUpdatePopup }) {
                       name="director_name"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
+                      disabled
                     ></Field>
                     <ErrorMessage
                       name="director_name"
@@ -124,7 +123,7 @@ function UpdateDirectorPopup({ singleDirector, handleShowUpdatePopup }) {
                       className="text-red-400"
                     />
                   </div>
-
+                  {/* 
                   <div className="space-y-2">
                     <div className="space-y-2 flex flex-col">
                       <label htmlFor="">Movies Directed</label>
@@ -141,7 +140,7 @@ function UpdateDirectorPopup({ singleDirector, handleShowUpdatePopup }) {
                       component="p"
                       className="text-red-400"
                     />
-                  </div>
+                  </div> */}
 
                   <div className="text-gray-900 font-bold grid sm:grid-cols-2 gap-2">
                     <button

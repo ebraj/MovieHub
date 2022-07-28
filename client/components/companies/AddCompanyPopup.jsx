@@ -13,7 +13,7 @@ import CompanyPopupContext from "../contexts/CompanyPopupContext";
  */
 const requiredSchema = Yup.object({
   company_name: Yup.string().required(),
-  address: Yup.string(),
+  address: Yup.string().required(),
 });
 
 /**
@@ -57,13 +57,11 @@ function AddCompanyPopup() {
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
-              console.log(values);
               try {
                 const response = await axios.post(
                   "http://localhost:3001/companies",
                   values
                 );
-                console.log(response);
                 toast.success("Company added successfully!", {
                   onClose: setTimeout(() => {
                     router.reload("/companies");

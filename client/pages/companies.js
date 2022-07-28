@@ -23,7 +23,7 @@ function Companies({ companyDatas }) {
   );
 }
 
-export const getServerSideProps = async (contexts) => {
+export const getServerSideProps = async () => {
   const { data } = await axios.get("http://localhost:3001/companies");
   return {
     props: {

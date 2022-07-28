@@ -1,7 +1,7 @@
 import "../styles/globals.css";
 import { useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Navbar from "../components/shared/Navbar";
+import Footer from "../components/shared/Footer";
 
 import PopupContext from "../components/contexts/PopupContext";
 import ActorPopupContext from "../components/contexts/ActorPopupContext";

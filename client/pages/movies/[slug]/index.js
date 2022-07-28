@@ -1,4 +1,3 @@
-import Card from "../../../components/Card";
 import axios from "axios";
 import slugify from "slugify";
 import { useRouter } from "next/router";
@@ -6,7 +5,9 @@ import { useState, useEffect } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit3 } from "react-icons/fi";
 import { toast, ToastContainer } from "react-toastify";
+
 import UpdateMoviePopup from "../../../components/main/UpdateMoviePopup";
+import Card from "../../../components/Card";
 
 function Slug({ movieDatas }) {
   const router = useRouter();
@@ -74,23 +75,34 @@ function Slug({ movieDatas }) {
                     <span>Duration:</span>
                     <span className="text-gray-400"> {singleMovie.length}</span>
                   </p>
-                  <p>
-                    <span>Director:</span>
-                    <span className="text-gray-400">
-                      {" "}
-                      {singleMovie.director_name}
-                    </span>
-                  </p>
-                  <p>
-                    <span>Actors: </span>
-                    <span className="text-gray-400">{singleMovie.actors}</span>
-                  </p>
+                  {singleMovie.director_name && (
+                    <p>
+                      <span>Director:</span>
+                      <span className="text-gray-400">
+                        {" "}
+                        {singleMovie.director_name}
+                      </span>
+                    </p>
+                  )}
+                  {singleMovie.actors && (
+                    <p>
+                      <span>Actors: </span>
+                      <span className="text-gray-400">
+                        {singleMovie.actors}
+                      </span>
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-2">
-                  <p>
-                    <span>Genres: </span>
-                    <span className="text-gray-400"> {singleMovie.genres}</span>
-                  </p>
+                  {singleMovie.genres && (
+                    <p>
+                      <span>Genres: </span>
+                      <span className="text-gray-400">
+                        {" "}
+                        {singleMovie.genres}
+                      </span>
+                    </p>
+                  )}
                   <p>
                     <span>Production: </span>
                     <span className="text-gray-400">
@@ -134,9 +146,19 @@ export const getServerSideProps = async (context) => {
   } = context;
   const { data } = await axios.get("http://localhost:3001/");
 
+  /*
+   * Getting the moviesData other than the selected Movie
+   */
+
+  const upgradedArray = data.filter((singleData) => {
+    if (slugify(singleData.movie_name) !== slug) {
+      return singleData;
+    }
+  });
+
   return {
     props: {
-      movieDatas: data,
+      movieDatas: upgradedArray,
     },
   };
 };

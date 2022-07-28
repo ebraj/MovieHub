@@ -42,7 +42,6 @@ const customStyles = {
 
 function UpdateQuotesPopup({ singleQuote, handleShowUpdatePopup }) {
   const quoteSlug = slugify(singleQuote.role_played);
-  console.log(quoteSlug);
   const { showQuotesPopup, setShowQuotesPopup } =
     useContext(QuotesPopupContext);
   const router = useRouter();
@@ -74,7 +73,6 @@ function UpdateQuotesPopup({ singleQuote, handleShowUpdatePopup }) {
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
-              console.log(values);
               try {
                 const response = await axios.put(
                   `http://localhost:3001/quotes/${quoteSlug}`,

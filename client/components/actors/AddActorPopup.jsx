@@ -14,8 +14,8 @@ import ActorPopupContext from "../contexts/ActorPopupContext";
 const requiredSchema = Yup.object({
   actor_name: Yup.string().required(),
   actor_DOB: Yup.string(),
-  role: Yup.string().required(),
-  movie_name: Yup.string(),
+  role: Yup.string().required().required(),
+  movie_name: Yup.string().required(),
 });
 
 /**
@@ -75,13 +75,11 @@ function AddMoviePopup() {
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
-              console.log(values);
               try {
                 const response = await axios.post(
                   "http://localhost:3001/actors",
                   values
                 );
-                console.log(values);
                 toast.success("Actor added successfully!", {
                   onClose: setTimeout(() => {
                     router.reload("/actors");

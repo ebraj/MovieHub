@@ -2,11 +2,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { BsSearch } from "react-icons/bs";
-import PopupContext from "./contexts/PopupContext";
-import ActorPopupContext from "./contexts/ActorPopupContext";
-import CompanyPopupContext from "./contexts/CompanyPopupContext";
-import DirectorPopupContext from "./contexts/DirectorPopupContext";
-import QuotesPopupContext from "./contexts/QuotesPopupContext";
+import PopupContext from "../contexts/PopupContext";
+import ActorPopupContext from "../contexts/ActorPopupContext";
+import CompanyPopupContext from "../contexts/CompanyPopupContext";
+import DirectorPopupContext from "../contexts/DirectorPopupContext";
+import QuotesPopupContext from "../contexts/QuotesPopupContext";
 
 import Image from "next/image";
 

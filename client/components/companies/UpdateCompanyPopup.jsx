@@ -3,10 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import { useRouter } from "next/router";
 import * as Yup from "yup";
-import Select from "react-select";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import CompanyPopupContext from "../contexts/CompanyPopupContext";
 import slugify from "slugify";
 
 /**
@@ -14,7 +12,7 @@ import slugify from "slugify";
  */
 const requiredSchema = Yup.object({
   company_name: Yup.string().required(),
-  address: Yup.string(),
+  address: Yup.string().required(),
 });
 
 /**
@@ -42,8 +40,6 @@ const customStyles = {
 
 function UpdateCompanyPopup({ singleCompany, handleShowUpdatePopup }) {
   const companySlug = slugify(singleCompany.company_name);
-  const { showCompanyPopup, setShowCompanyPopup } =
-    useContext(CompanyPopupContext);
   const router = useRouter();
 
   return (
@@ -59,7 +55,6 @@ function UpdateCompanyPopup({ singleCompany, handleShowUpdatePopup }) {
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
-              console.log(values);
               try {
                 const response = await axios.put(
                   `http://localhost:3001/companies/${companySlug}`,
@@ -85,6 +80,7 @@ function UpdateCompanyPopup({ singleCompany, handleShowUpdatePopup }) {
                       name="company_name"
                       autoComplete="off"
                       className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
+                      disabled
                     ></Field>
                     <ErrorMessage
                       name="company_name"
