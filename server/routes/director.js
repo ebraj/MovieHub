@@ -21,7 +21,8 @@ directorRouter.post("/", (req, res) => {
   let newDirector = [director.director_name, director.director_DOB];
   addTo.addDirector(newDirector, movie_name);
   if (isActor) {
-    let newDirectorActs = [movie_name, director.directorRouter, director.role];
+    let newDirectorActs = [movie_name, director.director_name, director.role];
+    console.log(newDirectorActs);
     addTo.addActors(newDirector, newDirectorActs);
   }
   res.send("New Director added");

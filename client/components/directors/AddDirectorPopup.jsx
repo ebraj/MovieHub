@@ -71,6 +71,8 @@ function AddDirectorPopup() {
               director_name: "",
               director_DOB: "",
               movie_name: "",
+              isActor: false,
+              role: "",
             }}
             validationSchema={requiredSchema}
             onSubmit={async (values) => {
@@ -138,6 +140,33 @@ function AddDirectorPopup() {
                       className="text-red-400"
                     />
                   </div>
+
+                  <div className="space-y-2 flex items-center justify-between">
+                    <label htmlFor="">Is director an actor?</label>
+                    <Field
+                      type="checkbox"
+                      name="isActor"
+                      label="Is actor"
+                      className="h-5 w-5"
+                    ></Field>
+                  </div>
+
+                  {values.isActor && (
+                    <div className="space-y-2">
+                      <label htmlFor="">Role</label>
+                      <Field
+                        type="text"
+                        name="role"
+                        autoComplete="off"
+                        className="w-full px-3 py-2 border-none bg-gray-800 outline-none"
+                      ></Field>
+                      <ErrorMessage
+                        name="role"
+                        component="p"
+                        className="text-red-400"
+                      />
+                    </div>
+                  )}
                   <div className="text-gray-900 font-bold grid sm:grid-cols-2 gap-2">
                     <button
                       className="px-5 py-4 rounded-md bg-green-400 w-full"
