@@ -96,6 +96,7 @@ function UpdateMoviePopup({ handleEditMovieCancel, singleMovie }) {
                     router.reload(`/movie/${slug}`);
                   }, 3500),
                 });
+                console.log(values);
               } catch {
                 toast.error("Failed to add movie.");
               }
@@ -169,9 +170,14 @@ function UpdateMoviePopup({ handleEditMovieCancel, singleMovie }) {
                       <label htmlFor="">Genres</label>
                       <Select
                         options={genresOptions}
+                        isMulti
                         styles={customStyles}
                         onChange={(selectedOption) => {
-                          setFieldValue("genres", selectedOption.value);
+                          const datas = selectedOption.map((singleVal) => {
+                            return singleVal.value;
+                          });
+
+                          setFieldValue("genres", datas.toString());
                         }}
                       />
                     </div>
